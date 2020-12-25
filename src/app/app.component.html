@@ -1,11 +1,12 @@
 <div class="page">
-  <nav mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
+  <nav class="page__navbar" mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
     <a mat-tab-link
       *ngFor="let tab of navlist"
       [routerLink]="tab.url"
       routerLinkActive 
       #rla="routerLinkActive"
-      [active]="rla.isActive">
+      [active]="rla.isActive"
+      class="tab">
       <mat-icon>{{ tab.icon }}</mat-icon>
       <div class="tab__title">
         {{ tab.title }}
@@ -13,5 +14,7 @@
     </a>
   </nav>
   
-  <router-outlet></router-outlet>
+  <div class="page__content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

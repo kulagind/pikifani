@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    padding: 20px;
+}
+
+.container__title {
+    margin-bottom: 15px;
+}
+
+.form__elem {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form_submit {
+    display: block;
+    margin: 5px 0 0 auto;
+}
