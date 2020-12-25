@@ -3,7 +3,7 @@ import { Navlist } from './../interfaces/nav';
 export const navlist: Navlist[] = [
     {
         title: 'Новая игра',
-        url: '/start',
+        url: '/new',
         icon: 'add'
     },
     {

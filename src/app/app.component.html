@@ -1,12 +1,17 @@
 <div class="page">
-  <mat-tab-group [backgroundColor]="'primary'">    
-    <mat-tab *ngFor="let tab of navlist">
-      <ng-template mat-tab-label>
-        <mat-icon>{{ tab.icon }}</mat-icon>
-        <div class="tab-title">
-          {{ tab.title }}
-        </div>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
+  <nav mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
+    <a mat-tab-link
+      *ngFor="let tab of navlist"
+      [routerLink]="tab.url"
+      routerLinkActive 
+      #rla="routerLinkActive"
+      [active]="rla.isActive">
+      <mat-icon>{{ tab.icon }}</mat-icon>
+      <div class="tab__title">
+        {{ tab.title }}
+      </div>   
+    </a>
+  </nav>
+  
+  <router-outlet></router-outlet>
 </div>

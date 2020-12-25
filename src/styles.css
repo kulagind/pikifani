@@ -19,6 +19,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 /* Changes mat styles */
-.mat-tab-labels {
-    justify-content: center;
-}
