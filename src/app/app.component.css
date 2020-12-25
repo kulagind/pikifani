@@ -1,0 +1,13 @@
+.page {
+
+}
+
+.tab-title {
+    margin-left: 10px;
+}
+
+@media only screen and (max-width : 480px) {
+    .tab-title {
+        display: none;
+    }
+}
