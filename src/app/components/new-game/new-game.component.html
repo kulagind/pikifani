@@ -1,0 +1,18 @@
+<div class="container">
+    <h2 class="container__title">Начать новую игру</h2>
+    <form [formGroup]="newGameForm" class="form">
+        <mat-form-field class="form__elem">
+            <mat-label>Слово из 4 букв</mat-label>
+            <input matInput type="text" formControlName="word" maxlength="4">
+        </mat-form-field>
+
+        <mat-checkbox class="form__elem" [color]="'primary'" formControlName="withFriend">Играть с другом</mat-checkbox>      
+
+        <mat-form-field class="form__elem">
+            <mat-label>Имя или ID друга</mat-label>
+            <input matInput type="text" formControlName="friendName">
+        </mat-form-field>
+    </form>
+
+    <button class="form_submit" mat-raised-button color="primary">Начать</button>
+</div>

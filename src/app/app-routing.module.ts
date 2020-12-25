@@ -1,7 +1,18 @@
+import { AboutComponent } from './components/about/about.component';
+import { FriendsComponent } from './components/friends/friends.component';
+import { GamesComponent } from './components/games/games.component';
+import { NewGameComponent } from './components/new-game/new-game.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: '/games', pathMatch: 'full' },
+  { path: 'new', component: NewGameComponent },
+  { path: 'games', component: GamesComponent },
+  { path: 'friends', component: FriendsComponent },
+  { path: 'about', component: AboutComponent },
+  { path: '**', redirectTo: 'games' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

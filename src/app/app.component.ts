@@ -1,3 +1,4 @@
+import { navlist } from './models/navbar';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pf';
+  navlist = navlist;
 }
