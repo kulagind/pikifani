@@ -1,4 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TableData } from 'src/app/interfaces/table';
+import { TableService } from './../services/table.service';
+import { GamesService } from './../services/games.service';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
@@ -6,7 +9,8 @@ import { ReplaySubject } from 'rxjs';
 @Component({
   selector: 'app-new-game',
   templateUrl: './new-game.component.html',
-  styleUrls: ['./new-game.component.css']
+  styleUrls: ['./new-game.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewGameComponent implements OnInit, OnDestroy {
 
@@ -15,6 +19,12 @@ export class NewGameComponent implements OnInit, OnDestroy {
   readonly word = 'word';
   readonly withFriend = 'withFriend';
   readonly friendName = 'friendName';
+
+  public waitingData: TableData;
+  public receivedInvitesData: TableData;
+  public sentInvitesData: TableData;
+
+  public isFormOpened = false;
 
   public newGameForm: FormGroup = new FormGroup({
     [this.word]: new FormControl('', [
@@ -27,13 +37,17 @@ export class NewGameComponent implements OnInit, OnDestroy {
     [this.friendName]: new FormControl({value: '', disabled: true}),
   });
 
-  constructor() { }
+  constructor(
+    private gamesService: GamesService,
+    private tableService: TableService
+  ) { }
 
   ngOnDestroy(): void {
     this.destroy$.next();
   }
 
   ngOnInit(): void {
+    this.setTables();
     this.listenForm();
   }
 
@@ -59,4 +73,19 @@ export class NewGameComponent implements OnInit, OnDestroy {
     });
   }
 
+  private setTables(): void {
+    this.gamesService.waitingGames$.subscribe(games => {
+      this.waitingData = this.tableService.toTable(games);
+    });
+    this.gamesService.receivedInvites$.subscribe(games => {
+      this.receivedInvitesData = this.tableService.toTable(games);
+    });
+    this.gamesService.sentInvites$.subscribe(games => {
+      this.sentInvitesData = this.tableService.toTable(games);
+    });
+  }
+
+  openForm(): void {
+    this.isFormOpened = true;
+  }
 }

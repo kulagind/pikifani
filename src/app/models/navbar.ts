@@ -17,7 +17,7 @@ export const navlist: Navlist[] = [
         icon: 'people'
     },
     {
-        title: 'Об игре',
+        title: 'Информация',
         url: '/about',
         icon: 'info'
     }

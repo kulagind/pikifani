@@ -1,0 +1,66 @@
+.container {
+    margin-top: 20px;
+    width: 100%;
+    height: max-content;
+}
+
+.container__title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* Mat table styles */
+
+.mat-table {
+    width: 100%;
+}
+
+.table__word {
+    min-width: 80px;
+    width: max-content;
+}
+
+.table__friend {
+    width: max-content;
+    min-width: 50%;
+}
+
+.table__icon {
+    width: 30px;
+}
+
+.table__turn {
+    display: block;
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+    border: 1px solid black;
+}
+
+.mat-row {
+    cursor: pointer;
+}
+
+.mat-row:nth-child(even) {
+    background-color: var(--background-color);
+}
+        
+.mat-row:nth-child(odd) {
+    background-color: var(--background-color-alt);
+}
+
+.mat-cell:last-of-type, .mat-header-cell:last-of-type {
+    padding-right: 10px;
+}
+
+.mat-cell:first-of-type, .mat-header-cell:first-of-type {
+    padding-left: 15px;
+}
+
+.mat-header-row {
+    background-color: var(--main-color);
+}
+
+.mat-header-cell {
+    color: var(--background-color);
+}
