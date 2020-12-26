@@ -1,1 +1,9 @@
-<p>games works!</p>
+<div class="container">
+    <app-table *ngIf="games; else notFound" [data]="games"></app-table>
+
+    <ng-template #notFound>
+        <div>
+            Игры не найдены
+        </div>
+    </ng-template>
+</div>

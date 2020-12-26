@@ -1,0 +1,35 @@
+<div class="container" *ngIf="data.dataSource.length > 0">
+  <h2 *ngIf="title" class="container__title">{{ title }}</h2>
+  <table mat-table [dataSource]="data.dataSource" class="mat-elevation-z8">  
+      <!-- Word Column -->
+      <ng-container matColumnDef="word">
+        <th class="table__word" mat-header-cell *matHeaderCellDef> Слово </th>
+        <td class="table__word" mat-cell *matCellDef="let element"> {{element.word}} </td>
+      </ng-container>
+    
+      <!-- friend Column -->
+      <ng-container matColumnDef="friend">
+        <th class="table__friend" mat-header-cell *matHeaderCellDef> Друг </th>
+        <td class="table__friend" mat-cell *matCellDef="let element"> {{element.friend}} </td>
+      </ng-container>
+    
+      <!-- Turn Column -->
+      <ng-container matColumnDef="isYourTurn">
+        <th class="table__icon" mat-header-cell *matHeaderCellDef> Ход </th>
+        <td class="table__icon" mat-cell *matCellDef="let element">
+          <div [ngStyle]="{'background-color': element.isYourTurn === true ? 'lawngreen' : 'red'}" class="table__turn"></div>
+        </td>
+      </ng-container>
+    
+      <!-- Cancel Column -->
+      <ng-container matColumnDef="cancel">
+        <th class="table__icon" mat-header-cell *matHeaderCellDef></th>
+        <td class="table__icon" mat-cell *matCellDef="let element">
+          <mat-icon class="table__close">close</mat-icon>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: data.displayedColumns;"></tr>
+  </table>
+</div>
