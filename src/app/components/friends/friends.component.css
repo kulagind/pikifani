@@ -1,0 +1,19 @@
+.container {
+    padding: 20px;
+}
+
+.form {
+    border: 1px solid var(--background-color-alt);
+    width: 100%;
+    height: max-content;
+    padding: 20px;
+}
+.form__elem {
+    display: block;
+    height: 50px;
+    width: 100%;
+}
+.form__submit {
+    display: block;
+    margin: 5px 0 0 auto;
+}

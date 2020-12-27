@@ -57,10 +57,15 @@
     padding-left: 15px;
 }
 
+.mat-cell {
+    padding-left: 10px;
+}
+
 .mat-header-row {
     background-color: var(--main-color);
 }
 
 .mat-header-cell {
+    padding-left: 10px;
     color: var(--background-color);
 }

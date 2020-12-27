@@ -22,8 +22,6 @@ export class GamesComponent implements OnInit {
   ngOnInit(): void {
     this.gamesService.games$.subscribe(games => {
       this.games = this.tableService.toTable(games);
-      console.log(games);
-      
     })
   }
 

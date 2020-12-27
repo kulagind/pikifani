@@ -13,6 +13,24 @@
         <td class="table__friend" mat-cell *matCellDef="let element"> {{element.friend}} </td>
       </ng-container>
     
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th class="table__friend" mat-header-cell *matHeaderCellDef> Имя </th>
+        <td class="table__friend" mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- GamesQuaintity Column -->
+      <ng-container matColumnDef="gamesQuantity">
+        <th mat-header-cell *matHeaderCellDef> Игр </th>
+        <td mat-cell *matCellDef="let element"> {{element.gamesQuantity}} </td>
+      </ng-container>
+
+      <!-- winRatio Column -->
+      <ng-container matColumnDef="winQuantity">
+        <th mat-header-cell *matHeaderCellDef> % побед </th>
+        <td mat-cell *matCellDef="let element"> {{((element.winQuantity / element.gamesQuantity) * 100).toFixed(2)}} </td>
+      </ng-container>
+    
       <!-- Turn Column -->
       <ng-container matColumnDef="isYourTurn">
         <th class="table__icon" mat-header-cell *matHeaderCellDef> Ход </th>

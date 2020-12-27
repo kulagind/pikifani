@@ -10,12 +10,14 @@ import { NewGameComponent } from './components/new-game/new-game.component';
 import { GamesComponent } from './components/games/games.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { AboutComponent } from './components/about/about.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import { TableComponent } from './components/public/table/table.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatComponent } from './components/chat/chat.component';
+import { MessageComponent } from './components/chat/message/message.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     GamesComponent,
     FriendsComponent,
     AboutComponent,
-    TableComponent
+    TableComponent,
+    ChatComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     MatButtonModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

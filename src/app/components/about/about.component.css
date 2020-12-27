@@ -1,0 +1,29 @@
+.container {
+    padding: 20px;
+}
+
+.container__user {
+    border: 1px solid var(--background-color-alt);
+    width: 100%;
+    height: max-content;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.container__user_text {
+    padding: 5px 0;
+}
+.container__user_value {
+    font-weight: bold;
+}
+.container__user_button {
+    margin: 10px 0;
+}
+
+.container__rules {
+    margin-top: 20px;
+}
+.container__rules_text {
+    margin-top: 10px;
+}

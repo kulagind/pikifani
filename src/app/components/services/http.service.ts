@@ -1,3 +1,6 @@
+import { currentUser } from './../../mocks/user';
+import { User } from 'src/app/interfaces/user';
+import { friends, receivedFriendsInvites, sentFriendsInvites } from './../../mocks/friends';
 import { Game, RecievedInvite, SentInvite, Waiting } from './../../interfaces/table';
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
@@ -17,11 +20,20 @@ export class HttpService {
         private httpClient: HttpClient
     ) { }
 
+    auth(name: string, password: string): Observable<User> {
+        const url = `${this.basicUrl}`;
+        // this.httpClient.get<Waiting[]>(url);
+        return of(currentUser);
+    }
+
     getWaitingGames(): Observable<Waiting[]> {
         const url = `${this.basicUrl}/${this.userId}`;
         // this.httpClient.get<Waiting[]>(url);
         return of(waitingGames);
     }
+
+    // createGame(): Observable<void> {
+    // }
 
     getSentInvites(): Observable<SentInvite[]> {
         const url = `${this.basicUrl}/${this.userId}`;
@@ -39,5 +51,23 @@ export class HttpService {
         const url = `${this.basicUrl}/${this.userId}`;
         // this.httpClient.get<Game[]>(url);
         return of(games);
+    }
+
+    getFriends(): Observable<User[]> {
+        const url = `${this.basicUrl}/${this.userId}`;
+        // this.httpClient.get<Game[]>(url);
+        return of(friends);
+    }
+
+    getSentFriendsInvites(): Observable<User[]> {
+        const url = `${this.basicUrl}/${this.userId}`;
+        // this.httpClient.get<Game[]>(url);
+        return of(receivedFriendsInvites);
+    }
+
+    getReceivedFriendsInvites(): Observable<User[]> {
+        const url = `${this.basicUrl}/${this.userId}`;
+        // this.httpClient.get<Game[]>(url);
+        return of(sentFriendsInvites);
     }
 }
