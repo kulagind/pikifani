@@ -1,5 +1,5 @@
 <div class="container">
-    <app-table *ngIf="games; else notFound" [data]="games" title="Активные игры"></app-table>
+    <app-table *ngIf="games; else notFound" [data]="games" title="Активные игры" [action]="open.bind(this)"></app-table>
 
     <ng-template #notFound>
         <div>

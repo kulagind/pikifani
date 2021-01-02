@@ -1,4 +1,18 @@
 <div class="container">
-    <div class="container__word">{{ message.word }} <span>{{ message.creationTime | date:'DD.MM.YY hh:mm' }}</span></div>
-    <div class="container__word">{{ message }}</div>
+    <div class="message" 
+         [ngClass]="{'your-container': message.authorId === authService.userId,
+                     'friend-container': message.authorId !== authService.userId}">
+        <div [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-start' : 'flex-end'}"
+             class="message__word">
+            {{ message.word }}
+        </div>
+        <div [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-start' : 'flex-end'}"
+             class="message__date">
+            {{ message.creationTime | date:'dd.MM.yy hh:mm' }}
+        </div> 
+    </div>
+    <div *ngIf="message.authorId === authService.userId"
+         class="result">
+        {{ message.resultP }} п  |  {{ message.resultF }} ф
+    </div>
 </div>

@@ -8,7 +8,7 @@ import { User } from 'src/app/interfaces/user';
     providedIn: 'root'
 })
 export class AuthService {
-    private userId: number;
+    private _userId: number;
     private user = new ReplaySubject<User>(1);
 
     constructor(
@@ -22,11 +22,15 @@ export class AuthService {
     }
 
     private setUser(user: User): void {
-        this.userId = user.id;
+        this._userId = user.id;
         this.user.next(user);
     }
 
     get user$(): Observable<User> {
         return this.user.asObservable();
+    }
+
+    get userId(): number {
+        return this._userId;
     }
 }

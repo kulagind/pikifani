@@ -3,6 +3,7 @@ import { GamesService } from './../services/games.service';
 import { TableData } from 'src/app/interfaces/table';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { games } from 'src/app/mocks/mock-games';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-games',
@@ -16,7 +17,9 @@ export class GamesComponent implements OnInit {
 
   constructor(
     private gamesService: GamesService,
-    private tableService: TableService
+    private tableService: TableService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -25,4 +28,7 @@ export class GamesComponent implements OnInit {
     })
   }
 
+  open(gameId: number): void {
+    this.router.navigate([gameId], {relativeTo: this.activatedRoute});
+  }
 }

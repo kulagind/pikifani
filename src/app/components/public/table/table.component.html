@@ -32,10 +32,10 @@
       </ng-container>
     
       <!-- Turn Column -->
-      <ng-container matColumnDef="isYourTurn">
+      <ng-container matColumnDef="turnId">
         <th class="table__icon" mat-header-cell *matHeaderCellDef> Ход </th>
         <td class="table__icon" mat-cell *matCellDef="let element">
-          <div [ngStyle]="{'background-color': element.isYourTurn === true ? 'lawngreen' : 'red'}" class="table__turn"></div>
+          <div [ngStyle]="{'background-color': element.turnId === authService.userId ? 'lawngreen' : 'red'}" class="table__turn"></div>
         </td>
       </ng-container>
     
@@ -48,6 +48,6 @@
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: data.displayedColumns;"></tr>
+      <tr (click)="action(row?.id)" mat-row *matRowDef="let row; columns: data.displayedColumns;"></tr>
   </table>
 </div>

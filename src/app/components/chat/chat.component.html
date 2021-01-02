@@ -1,3 +1,37 @@
-<div class="container">
+<div class="relative">
+    <div *ngIf="chat" class="container">
+        <div class="container__word">
+            <div>{{ chat.word }}</div>
     
+            <form [formGroup]="wordForm" class="form">
+                <mat-form-field class="form__elem">
+                    <input matInput type="text" formControlName="l1" maxlength="1">
+                </mat-form-field>
+                <mat-form-field class="form__elem">
+                    <input matInput type="text" formControlName="l2" maxlength="1">
+                </mat-form-field>
+                <mat-form-field class="form__elem">
+                    <input matInput type="text" formControlName="l3" maxlength="1">
+                </mat-form-field>
+                <mat-form-field class="form__elem">
+                    <input matInput type="text" formControlName="l4" maxlength="1">
+                </mat-form-field>
+            </form>
+        </div>
+    
+        <div class="container__chat">
+            <ng-container *ngFor="let message of chat.messages">
+                <app-message [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-end' : 'flex-start'}" class="container__chat_message" [message]="message"></app-message>
+            </ng-container>
+        </div>    
+    </div>
+    
+    <div class="input-form">
+        <mat-form-field class="input-form_word">
+            <mat-label>Введите слово</mat-label>
+            <input matInput type="text" [formControl]="wordInput" maxlength="4">
+        </mat-form-field>
+    
+        <button class="input-form_button" mat-raised-button color="primary">Отправить</button>
+    </div>
 </div>

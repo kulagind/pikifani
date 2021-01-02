@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TableData } from 'src/app/interfaces/table';
 
@@ -11,8 +12,11 @@ export class TableComponent implements OnInit {
 
   @Input() data: TableData;
   @Input() title: string;
+  @Input() action: (id: number) => {};
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {    
   }

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from './../../services/auth.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Message } from 'src/app/interfaces/chat';
 
 @Component({
   selector: 'app-message',
@@ -8,7 +10,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor() { }
+  @Input() message: Message;
+
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
