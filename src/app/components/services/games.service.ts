@@ -1,5 +1,4 @@
 import { HttpService } from './http.service';
-import { waitingGames } from 'src/app/mocks/mock-games';
 import { Game, RecievedInvite, SentInvite, TableData, Waiting } from 'src/app/interfaces/table';
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject } from 'rxjs';
@@ -66,7 +65,7 @@ export class GamesService {
         ).subscribe();
     }
 
-    fetchReceivedInvites(): void {
+    fetchReceivedGamesInvites(): void {
         this.httpService.getReceivedInvites().pipe(
             tap(games => {
                 this.setRecievedInvites(games);
@@ -74,7 +73,7 @@ export class GamesService {
         ).subscribe();
     }
 
-    fetchSentInvites(): void {
+    fetchSentGamesInvites(): void {
         this.httpService.getSentInvites().pipe(
             tap(games => {
                 this.setSentInvites(games);

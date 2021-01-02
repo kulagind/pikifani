@@ -1,1 +1,16 @@
-<p>friends works!</p>
+<div class="container">
+    <div class="form">
+        <h3>Добавить друга</h3>
+        <mat-form-field class="form__elem">
+            <mat-label>Имя или ID друга</mat-label>
+            <input matInput type="text" [(ngModel)]="name">
+        </mat-form-field> 
+        <button class="form__submit" mat-raised-button color="primary">Добавить</button>
+    </div>
+    
+    <app-table *ngIf="friends" [data]="friends" title="Список друзей"></app-table>
+
+    <app-table *ngIf="receivedInvites" [data]="receivedInvites" title="Входящие заявки"></app-table>
+
+    <app-table *ngIf="sentInvites" [data]="sentInvites" title="Отправленные заявки"></app-table>
+</div>

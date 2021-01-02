@@ -41,34 +41,40 @@ export const sentInvites: SentInvite[] = [
 
 export const games: Game[] = [
     {
+        id: 12,
         word: 'коза',
         friend: 'Артем',
-        isYourTurn: true,
+        turnId: 4,
     },
     {
+        id: 999,
         word: 'енот',
         friend: '',
-        isYourTurn: false,
+        turnId: 4
     },
     {
+        id: 3,
         word: 'ЖАБА',
         friend: 'Смешной котик',
-        isYourTurn: false,
+        turnId: 2
     },
     {
+        id: 4,
         word: 'горе',
         friend: 'Смешной котик',
-        isYourTurn: false,
+        turnId: 3
     },
     {
+        id: 5,
         word: 'шкет',
         friend: 'Смешной котик',
-        isYourTurn: true,
+        turnId: 4
     },
     {
+        id: 6,
         word: 'жмых',
         friend: '',
-        isYourTurn: false,
+        turnId: 1
     },
 ]
 

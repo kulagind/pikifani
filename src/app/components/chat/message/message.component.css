@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    width: max-content;
+    min-width: 100px;
+    height: max-content;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    padding: 5px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.your-container {
+    position: relative;
+    background: var(--main-color);
+    border-top-right-radius: 0;
+    color: var(--background-color);
+    margin-right: 14px;
+}
+
+.your-container:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 7px solid var(--main-color);
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--main-color);
+    border-bottom: 7px solid transparent;
+    right: -14px;
+    top: 0px;
+}
+
+.friend-container {
+    margin-left: 14px;
+    position: relative;
+    border: 1px solid var(--font-color);
+    border-top-left-radius: 0;
+}
+
+.friend-container:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 7px solid transparent;
+    border-right: 7px solid var(--font-color);
+    border-top: 7px solid var(--font-color);
+    border-bottom: 7px solid transparent;
+    left: -15px;
+    top: -1px;
+}
+
+.friend-container:after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 7px solid transparent;
+    border-right: 7px solid var(--background-color);
+    border-top: 7px solid var(--background-color);
+    border-bottom: 7px solid transparent;
+    left: -13px;
+    top: 0px;
+}
+
+.message__word {
+    display: block;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 3px;
+    width: max-content;
+}
+
+.message__date {
+    display: block;
+    font-size: 10px;
+    line-height: 12px;
+    width: max-content;
+}
+
+.result {
+    width: max-content;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}

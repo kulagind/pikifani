@@ -1,1 +1,38 @@
-<p>about works!</p>
+<div class="container">
+    <div *ngIf="(authService.user$ | async) as user" class="container__user">
+        <h3 class="container__user_text">О пользователе</h3>
+        <div class="container__user_text">Псевдоним: <span class="container__user_value">{{ user.name }}</span></div>
+        <div class="container__user_text">ID: <span class="container__user_value">{{ user.id }}</span></div>
+        <div class="container__user_text">Игры: <span class="container__user_value">{{ user.gamesQuantity }}</span></div>
+        <div class="container__user_text">Победы: <span class="container__user_value">{{ user.winQuantity }}</span></div>
+        <div class="container__user_text">% побед: <span class="container__user_value">{{ ((user.winQuantity / user.gamesQuantity) * 100).toFixed(2) }}</span></div>
+
+        <button class="container__user_button" mat-raised-button color="primary">Сменить псевдоним</button>
+        <button class="container__user_button" mat-raised-button color="primary">Сменить пароль</button>
+        <button class="container__user_button" mat-raised-button color="primary">Сменить пользователя</button>
+    </div>
+
+    <div class="container__rules">
+        <h3>Правила игры</h3>
+
+        <div class="container__rules_text">
+            <span class="container__user_value">Пика</span> - буква на правильном месте. <br>
+            <span class="container__user_value">Фаня</span> - буква на неправильном месте. <br>
+            <br>
+            Игра для двоих. Каждый игрок загадывает слово из четырех букв. 
+            Игроки поочереди называют проверочные слова в попытке определить слово соперника. 
+            Результатом каждого проверочного слова является определенное количество пик и фань, 
+            полученное путем сравнения загаданного соперником слова и Вашего проверочного слова.
+            Кто раньше определит слово соперника, тот - победитель. <br>
+            <br>
+            Например: <br>
+            1) Вы загадали слово "КОНЬ". <br>
+            2) Соперник называет проверочное слово "КРОТ". <br>
+            Результатом, который в ответ на проверочное слово получит соперник (сравнение КРОТ - КОНЬ) будет 1 пика, 1 фаня. 
+            Т.к. буква "К" имеет одинаковую позицию в обоих словах (поэтому это 1 пика), а буква "О" присутствует в обоих словах, 
+            но на разных позициях (1 фаня). <br>
+            <br>
+            P.S. Внимательно учитывайте слова с повторяющимися буквами (например МАМА).
+        </div>
+    </div>
+</div>

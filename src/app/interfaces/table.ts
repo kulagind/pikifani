@@ -1,9 +1,12 @@
-export type TableColumns = 'word' | 'friend' | 'isYourTurn' | 'cancel';
+export type TableColumns = 'word' | 'friend' | 'turnId' | 'cancel' | 'gamesQuantity' | 'winQuantity' | 'name';
+export const ColumnsNames = ['word', 'friend', 'turnId', 'cancel', 'gamesQuantity', 'winQuantity', 'name'];
 
 export interface TableDataSource {
     word?: string,
     friend?: string,
-    isYourTurn?: boolean
+    isYourTurn?: boolean,
+    gamesQuantity?: number,
+    winQuantity?: number
 };
 
 export interface TableData {
@@ -28,8 +31,8 @@ export interface SentInvite {
 }
 
 export interface Game {
-    id?: number;
+    id: number;
     word: string,
     friend: string,
-    isYourTurn: boolean
+    turnId: number
 }
