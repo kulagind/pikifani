@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChatComponent } from './components/chat/chat.component';
 import { MessageComponent } from './components/chat/message/message.component';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CommonModule } from '@angular/common';
     AboutComponent,
     TableComponent,
     ChatComponent,
-    MessageComponent
+    MessageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

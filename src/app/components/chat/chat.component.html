@@ -32,6 +32,6 @@
             <input matInput type="text" [formControl]="wordInput" maxlength="4">
         </mat-form-field>
     
-        <button class="input-form_button" mat-raised-button color="primary">Отправить</button>
+        <button class="input-form_button" mat-raised-button color="primary" [disabled]="chat.turnId !== authService.userId">Отправить</button>
     </div>
 </div>

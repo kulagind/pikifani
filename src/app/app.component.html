@@ -1,5 +1,7 @@
+
+
 <div class="page">
-  <nav class="page__navbar" mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
+  <nav *ngIf="authService.userId" class="page__navbar" mat-tab-nav-bar [backgroundColor]="'primary'" mat-align-tabs="center">
     <a mat-tab-link
       *ngFor="let tab of navlist"
       [routerLink]="tab.url"

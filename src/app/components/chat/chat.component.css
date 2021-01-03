@@ -30,6 +30,8 @@
     align-items: center;
     margin-bottom: 20px;
     height: 36px;
+    border: 1px solid var(--background-color-alt);
+    padding: 30px 0;
 }
 
 .container__word_yours {
