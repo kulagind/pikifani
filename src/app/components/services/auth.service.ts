@@ -1,5 +1,4 @@
 import { HttpService } from './http.service';
-import { Waiting } from './../../interfaces/table';
 import { Injectable } from "@angular/core";
 import { ReplaySubject, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
@@ -9,6 +8,7 @@ import { User } from 'src/app/interfaces/user';
 })
 export class AuthService {
     private _userId: number;
+    private expiredDate: Date;
     private user = new ReplaySubject<User>(1);
 
     constructor(
@@ -22,7 +22,7 @@ export class AuthService {
     }
 
     private setUser(user: User): void {
-        this._userId = user.id;
+        // this._userId = user.id;
         this.user.next(user);
     }
 
@@ -32,5 +32,12 @@ export class AuthService {
 
     get userId(): number {
         return this._userId;
+    }
+
+    isAuthenticated(): boolean {
+        if (this.userId) {
+            return true;
+        }
+        return false;
     }
 }

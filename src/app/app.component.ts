@@ -1,7 +1,6 @@
 import { AuthService } from './components/services/auth.service';
 import { FriendsService } from './components/services/friends.service';
 import { GamesService } from './components/services/games.service';
-import { HttpService } from './components/services/http.service';
 import { navlist } from './models/navbar';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
@@ -17,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(
     private gamesService: GamesService,
     private friendsService: FriendsService,
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
