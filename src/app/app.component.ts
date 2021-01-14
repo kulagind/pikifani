@@ -1,3 +1,4 @@
+import { HttpService } from './components/services/http.service';
 import { AuthService } from './components/services/auth.service';
 import { FriendsService } from './components/services/friends.service';
 import { GamesService } from './components/services/games.service';
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
   constructor(
     private gamesService: GamesService,
     private friendsService: FriendsService,
-    public authService: AuthService
+    public authService: AuthService,
+    private httpService: HttpService
   ) { }
 
   ngOnInit(): void {
@@ -28,5 +30,7 @@ export class AppComponent implements OnInit {
     this.friendsService.fetchFriends();
     this.friendsService.fetchReceivedFriendsInvites();
     this.friendsService.fetchSentFriendsInvites();
+    this.httpService.connetToChatById(3);
+    this.httpService.getWords();
   }  
 }

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { games, receivedInvites, sentInvites, waitingGames } from 'src/app/mocks/mock-games';
 import { Chat } from 'src/app/interfaces/chat';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,9 @@ export class HttpService {
 
     private userId: number;
 
-    private readonly basicUrl = '';
+    private readonly basicUrl = `${environment.baseUrl}`;
+    private readonly chatUrl = `${environment.baseUrl}/chat`;
+    private readonly sseUrl = `${environment.baseUrl}/sse`;
 
     constructor(
         private httpClient: HttpClient
@@ -77,5 +80,19 @@ export class HttpService {
         const url = `${this.basicUrl}/${chatId}`;
         // this.httpClient.get<Chat>(url);
         return of(mockChat);
+    }
+
+    connetToChatById(chatId?: number): any {
+        let chat = new EventSource(`${this.sseUrl}`);
+
+        chat.onmessage = (event: MessageEvent) => {
+            console.log(JSON.parse(event.data));
+        }
+    }
+
+    getWords(): any {
+       this.httpClient.get(`${this.basicUrl}/word`).subscribe(words => {
+           console.log(words);
+       });
     }
 }
