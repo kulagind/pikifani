@@ -41,26 +41,26 @@ export class FriendsService {
     }
 
     fetchFriends(): void {
-        this.httpService.getFriends().pipe(
-            tap(friends => {
-                this.setFriends(friends);
-            })
-        ).subscribe();
+        // this.httpService.getFriends().pipe(
+        //     tap(friends => {
+        //         this.setFriends(friends);
+        //     })
+        // ).subscribe();
     }
 
     fetchSentFriendsInvites(): void {
-        this.httpService.getSentFriendsInvites().pipe(
-            tap(friends => {
-                this.setSentFriendsInvites(friends);
-            })
-        ).subscribe();
+        // this.httpService.getSentFriendsInvites().pipe(
+        //     tap(friends => {
+        //         this.setSentFriendsInvites(friends);
+        //     })
+        // ).subscribe();
     }
 
     fetchReceivedFriendsInvites(): void {
-        this.httpService.getReceivedFriendsInvites().pipe(
-            tap(friends => {
-                this.setReceivedFriendsInvites(friends);
-            })
-        ).subscribe();
+        // this.httpService.getReceivedFriendsInvites().pipe(
+        //     tap(friends => {
+        //         this.setReceivedFriendsInvites(friends);
+        //     })
+        // ).subscribe();
     }
 }

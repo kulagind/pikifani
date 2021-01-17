@@ -1,13 +1,9 @@
 import { JWT, PublicKey } from './../../interfaces/token';
-import { mockChat } from './../../mocks/chat';
-import { currentUser } from './../../mocks/user';
 import { User } from 'src/app/interfaces/user';
-import { friends, receivedFriendsInvites, sentFriendsInvites } from './../../mocks/friends';
 import { Game, RecievedInvite, SentInvite, Waiting } from './../../interfaces/table';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { games, receivedInvites, sentInvites, waitingGames } from 'src/app/mocks/mock-games';
 import { Chat } from 'src/app/interfaces/chat';
 import { environment } from 'src/environments/environment';
 import { mergeMap } from 'rxjs/operators';
@@ -63,66 +59,66 @@ export class HttpService {
         return this.http.get<PublicKey>(`${this.authUrl}/key`);
     }
 
-    getWaitingGames(): Observable<Waiting[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<Waiting[]>(url);
-        return of(waitingGames);
-    }
+    // getWaitingGames(): Observable<Waiting[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<Waiting[]>(url);
+    //     return of(waitingGames);
+    // }
 
     // createGame(): Observable<void> {
     // }
 
-    getSentInvites(): Observable<SentInvite[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<SentInvite[]>(url);
-        return of(sentInvites);
-    }
+    // getSentInvites(): Observable<SentInvite[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<SentInvite[]>(url);
+    //     return of(sentInvites);
+    // }
 
-    getReceivedInvites(): Observable<RecievedInvite[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<RecievedInvite[]>(url);
-        return of(receivedInvites);
-    }
+    // getReceivedInvites(): Observable<RecievedInvite[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<RecievedInvite[]>(url);
+    //     return of(receivedInvites);
+    // }
 
-    getGames(): Observable<Game[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<Game[]>(url);
-        return of(games);
-    }
+    // getGames(): Observable<Game[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<Game[]>(url);
+    //     return of(games);
+    // }
 
-    getFriends(): Observable<User[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<Game[]>(url);
-        return of(friends);
-    }
+    // getFriends(): Observable<User[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<Game[]>(url);
+    //     return of(friends);
+    // }
 
-    getSentFriendsInvites(): Observable<User[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<Game[]>(url);
-        return of(receivedFriendsInvites);
-    }
+    // getSentFriendsInvites(): Observable<User[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<Game[]>(url);
+    //     return of(receivedFriendsInvites);
+    // }
 
-    getReceivedFriendsInvites(): Observable<User[]> {
-        const url = `${this.basicUrl}/${this.userId}`;
-        // this.httpClient.get<Game[]>(url);
-        return of(sentFriendsInvites);
-    }
+    // getReceivedFriendsInvites(): Observable<User[]> {
+    //     const url = `${this.basicUrl}/${this.userId}`;
+    //     // this.httpClient.get<Game[]>(url);
+    //     return of(sentFriendsInvites);
+    // }
 
-    getChatById(chatId?: number): Observable<Chat> {
-        const url = `${this.basicUrl}/${chatId}`;
-        // this.httpClient.get<Chat>(url);
-        return of(mockChat);
-    }
+    // getChatById(chatId?: number): Observable<Chat> {
+    //     const url = `${this.basicUrl}/${chatId}`;
+    //     // this.httpClient.get<Chat>(url);
+    //     return of(mockChat);
+    // }
 
-    connetToChatById(chatId?: number): any {
-        console.log(chatId);
+    // connetToChatById(chatId?: number): any {
+    //     console.log(chatId);
         
-        let chat = new EventSource(`${this.sseUrl}/${chatId}`);
+    //     let chat = new EventSource(`${this.sseUrl}/${chatId}`);
 
-        chat.onmessage = (event: MessageEvent) => {
-            console.log(JSON.parse(event.data));
-        }
-    }
+    //     chat.onmessage = (event: MessageEvent) => {
+    //         console.log(JSON.parse(event.data));
+    //     }
+    // }
 
     getWords(): any {
        this.http.get(`${this.basicUrl}/word`).subscribe(words => {

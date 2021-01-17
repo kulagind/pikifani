@@ -1,8 +1,6 @@
-import { receivedInvites } from './../../mocks/mock-games';
 import { TableService } from './../services/table.service';
 import { FriendsService } from './../services/friends.service';
 import { TableData } from './../../interfaces/table';
-import { friends } from './../../mocks/friends';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -13,6 +13,10 @@ export class LoginComponent implements OnInit {
 
   private isPending = false;
 
+  private loginPassword: string = '';
+  private registerPassword: string = '';
+  private registerConfirmPassword: string = '';
+
   loginForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -72,5 +76,4 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-
 }

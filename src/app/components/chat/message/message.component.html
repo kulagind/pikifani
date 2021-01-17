@@ -1,17 +1,17 @@
 <div class="container">
     <div class="message" 
-         [ngClass]="{'your-container': message.authorId === authService.userId,
-                     'friend-container': message.authorId !== authService.userId}">
-        <div [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-start' : 'flex-end'}"
+         [ngClass]="{'your-container': message.authorId === authService.id,
+                     'friend-container': message.authorId !== authService.id}">
+        <div [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-start' : 'flex-end'}"
              class="message__word">
             {{ message.word }}
         </div>
-        <div [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-start' : 'flex-end'}"
+        <div [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-start' : 'flex-end'}"
              class="message__date">
             {{ message.creationTime | date:'dd.MM.yy hh:mm' }}
         </div> 
     </div>
-    <div *ngIf="message.authorId === authService.userId"
+    <div *ngIf="message.authorId === authService.id"
          class="result">
         {{ message.resultP }} п  |  {{ message.resultF }} ф
     </div>

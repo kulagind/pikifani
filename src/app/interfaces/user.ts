@@ -1,6 +1,7 @@
 export interface User {
     name: string,
-    _id: string,
+    id?: string,
+    _id?: string,
     gamesQuantity?: number,
     winsQuantity?: number,
     friends: string[],

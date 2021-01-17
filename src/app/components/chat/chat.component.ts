@@ -42,15 +42,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.httpService.getChatById().subscribe(chat => {
-      this.chat = chat;
-    });
+    // this.httpService.getChatById().subscribe(chat => {
+    //   this.chat = chat;
+    // });
 
     this.listenForm();
   }
 
   private listenForm(): void {
-    if (this.chat.turnId !== this.authService.userId) {
+    if (this.chat.turnId !== this.authService.id) {
       this.wordInput.disable();
     }
 

@@ -35,7 +35,7 @@
       <ng-container matColumnDef="turnId">
         <th class="table__icon" mat-header-cell *matHeaderCellDef> Ход </th>
         <td class="table__icon" mat-cell *matCellDef="let element">
-          <div [ngStyle]="{'background-color': element.turnId === authService.userId ? 'lawngreen' : 'red'}" class="table__turn"></div>
+          <div [ngStyle]="{'background-color': element.turnId === authService.id ? 'lawngreen' : 'red'}" class="table__turn"></div>
         </td>
       </ng-container>
     

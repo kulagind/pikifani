@@ -5,6 +5,7 @@ import { User } from 'src/app/interfaces/user';
 import { mergeMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+export const jwtHeades = 'x-jwt';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,7 +13,6 @@ export class AuthService {
     private _id: string;
     private user = new ReplaySubject<User>(1);
     private _jwt: string;
-    private _jwtHeader: string;
 
     constructor(
         private httpService: HttpService,
@@ -51,13 +51,8 @@ export class AuthService {
         return this._jwt;
     }
 
-    get jwtHeader(): string {
-        return this._jwtHeader;
-    }
-
     private setToken(jwt: string, header: string): void {
         this._jwt = jwt;
-        this._jwtHeader = header;
         if (localStorage.getItem(header)) {
             localStorage.removeItem(header);
         }
@@ -66,7 +61,7 @@ export class AuthService {
 
     private setUser(user: User): void {
         this._id = user._id;
-        this.user.next(user);
+        this.user.next({...user, id: user._id});
     }
 
     get user$(): Observable<User> {

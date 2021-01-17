@@ -22,13 +22,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.initCurrentUser();    
-    this.gamesService.fetchWaitingGames();
-    this.gamesService.fetchReceivedGamesInvites();
-    this.gamesService.fetchSentGamesInvites();
-    this.gamesService.fetchGames();
-    this.friendsService.fetchFriends();
-    this.friendsService.fetchReceivedFriendsInvites();
-    this.friendsService.fetchSentFriendsInvites();
+    this.authService.initCurrentUser();
   }  
 }

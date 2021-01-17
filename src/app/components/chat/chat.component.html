@@ -21,7 +21,7 @@
     
         <div class="container__chat">
             <ng-container *ngFor="let message of chat.messages">
-                <app-message [ngStyle]="{'align-self': message.authorId === authService.userId ? 'flex-end' : 'flex-start'}" class="container__chat_message" [message]="message"></app-message>
+                <app-message [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-end' : 'flex-start'}" class="container__chat_message" [message]="message"></app-message>
             </ng-container>
         </div>    
     </div>
@@ -32,6 +32,6 @@
             <input matInput type="text" [formControl]="wordInput" maxlength="4">
         </mat-form-field>
     
-        <button class="input-form_button" mat-raised-button color="primary" [disabled]="chat.turnId !== authService.userId">Отправить</button>
+        <button class="input-form_button" mat-raised-button color="primary" [disabled]="chat.turnId !== authService.id">Отправить</button>
     </div>
 </div>

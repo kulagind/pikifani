@@ -15,24 +15,24 @@ export interface TableData {
 }
 
 export interface Waiting {
-    id?: number;
+    id?: string;
     word: string;
 }
 
 export interface RecievedInvite {
-    id?: number;
+    id?: string;
     friend: string
 }
 
 export interface SentInvite {
-    id?: number;
+    id?: string;
     word: string,
     friend: string
 }
 
 export interface Game {
-    id: number;
+    id: string;
     word: string,
     friend: string,
-    turnId: number
+    turnId: string
 }
