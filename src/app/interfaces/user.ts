@@ -1,6 +1,13 @@
 export interface User {
     name: string,
-    id: number,
+    _id: string,
     gamesQuantity?: number,
-    winQuantity?: number
+    winsQuantity?: number,
+    friends: string[],
+    games: string[],
+    receivedGameInvites: string[],
+    sentGameInvites: string[],
+    receivedFriendInvites: string[],
+    sentFriendInvites: string[],
+    waitingGames: string[]
 }

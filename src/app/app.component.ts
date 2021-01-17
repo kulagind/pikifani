@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.auth('admin', 'admin');
+    this.authService.initCurrentUser();    
     this.gamesService.fetchWaitingGames();
     this.gamesService.fetchReceivedGamesInvites();
     this.gamesService.fetchSentGamesInvites();
@@ -30,7 +30,5 @@ export class AppComponent implements OnInit {
     this.friendsService.fetchFriends();
     this.friendsService.fetchReceivedFriendsInvites();
     this.friendsService.fetchSentFriendsInvites();
-    this.httpService.connetToChatById(3);
-    this.httpService.getWords();
   }  
 }

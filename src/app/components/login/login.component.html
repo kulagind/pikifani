@@ -1,5 +1,42 @@
 <div class="container">
     <div class="container__form">
+        <ng-container *ngIf="isLogin; else register">
+            <h1 class="form-title">Вход</h1>
+            <mat-checkbox class="form__elem" [color]="'primary'" [(ngModel)]="isLogin">У меня уже есть учетная запись</mat-checkbox>
+            <form [formGroup]="loginForm" class="form">
+                <mat-form-field class="form__elem form__name">
+                    <mat-label>Введите имя</mat-label>
+                    <input matInput type="text" formControlName="name" maxlength="20" minlength="2">
+                </mat-form-field>  
         
+                <mat-form-field class="form__elem form__password">
+                    <mat-label>Введите пароль</mat-label>
+                    <input matInput type="text" formControlName="password" maxlength="20" minlength="4">
+                </mat-form-field>
+            </form>    
+            <button class="form_submit" mat-raised-button color="primary" (click)="auth()">Войти</button>
+        </ng-container>
+
+        <ng-template #register>
+            <h1 class="form-title">Регистрация</h1>
+            <mat-checkbox class="form__elem" [color]="'primary'" [(ngModel)]="isLogin">У меня уже есть учетная запись</mat-checkbox>
+            <form [formGroup]="registerForm" class="form">
+                <mat-form-field class="form__elem form__name">
+                    <mat-label>Введите имя</mat-label>
+                    <input matInput type="text" formControlName="name" maxlength="20" minlength="2">
+                </mat-form-field>  
+        
+                <mat-form-field class="form__elem form__password">
+                    <mat-label>Введите пароль</mat-label>
+                    <input matInput type="text" formControlName="password" maxlength="20" minlength="4">
+                </mat-form-field>
+        
+                <mat-form-field class="form__elem form__password">
+                    <mat-label>Подтвердите пароль</mat-label>
+                    <input matInput type="text" formControlName="confirmPassword" maxlength="20" minlength="4">
+                </mat-form-field>
+            </form>    
+            <button class="form_submit" mat-raised-button color="primary" (click)="auth()">Зарегистрироваться</button>
+        </ng-template>
     </div>
 </div>
