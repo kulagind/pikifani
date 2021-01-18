@@ -28,13 +28,30 @@ export class AuthService {
         );
     }
 
-    register$(login: string, password: string, confirmPassword: string): Observable<any> {
-        return this.httpService.register(login, password, confirmPassword).pipe(
+    register$(login: string, email: string, password: string, confirmPassword: string): Observable<any> {
+        return this.httpService.register(login, email, password, confirmPassword).pipe(
             tap(result => {
                 this.setToken(result.jwt, result.header);
                 this.initCurrentUser();
             })
         );
+    }
+
+    logout(): void {
+        if (localStorage.getItem(jwtHeades)) {
+            localStorage.removeItem(jwtHeades);
+        }
+        this._jwt = '';
+        this._id = '';
+        this.router.navigate(['/login']);
+    }
+
+    changePassword(): void {
+        
+    }
+
+    changeName(): void {
+
     }
 
     initCurrentUser(): void {

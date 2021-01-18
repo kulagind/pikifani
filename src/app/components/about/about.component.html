@@ -2,14 +2,15 @@
     <div *ngIf="(authService.user$ | async) as user" class="container__user">
         <h3 class="container__user_text">О пользователе</h3>
         <div class="container__user_text">Имя: <span class="container__user_value">{{ user.name }}</span></div>
+        <div class="container__user_text">Email: <span class="container__user_value">{{ user.email }}</span></div>
         <div class="container__user_text">ID: <span class="container__user_value">{{ user.id }}</span></div>
         <div class="container__user_text">Игры: <span class="container__user_value">{{ user.gamesQuantity }}</span></div>
-        <div class="container__user_text">Победы: <span class="container__user_value">{{ user.winQuantity }}</span></div>
-        <div class="container__user_text">% побед: <span class="container__user_value">{{ ((user.winQuantity / user.gamesQuantity) * 100).toFixed(2) }}</span></div>
+        <div class="container__user_text">Победы: <span class="container__user_value">{{ user.winsQuantity }}</span></div>
+        <div class="container__user_text">% побед: <span class="container__user_value">{{ user.gamesQuantity ? (((user.winsQuantity / user.gamesQuantity) * 100).toFixed(2)) : (0).toFixed(2) }}</span></div>
 
-        <button class="container__user_button" mat-raised-button color="primary">Сменить имя</button>
-        <button class="container__user_button" mat-raised-button color="primary">Сменить пароль</button>
-        <button class="container__user_button" mat-raised-button color="primary">Сменить пользователя</button>
+        <button class="container__user_button" mat-raised-button color="primary" (click)="authService.changeName()">Сменить имя</button>
+        <button class="container__user_button" mat-raised-button color="primary" (click)="authService.changePassword()">Сменить пароль</button>
+        <button class="container__user_button" mat-raised-button color="primary" (click)="authService.logout()">Сменить пользователя</button>
     </div>
 
     <div class="container__rules">

@@ -1,12 +1,12 @@
-export type TableColumns = 'word' | 'friend' | 'turnId' | 'cancel' | 'gamesQuantity' | 'winQuantity' | 'name';
-export const ColumnsNames = ['word', 'friend', 'turnId', 'cancel', 'gamesQuantity', 'winQuantity', 'name'];
+export type TableColumns = 'word' | 'friend' | 'turnId' | 'cancel' | 'gamesQuantity' | 'winsQuantity' | 'name';
+export const ColumnsNames = ['word', 'friend', 'turnId', 'cancel', 'gamesQuantity', 'winsQuantity', 'name'];
 
 export interface TableDataSource {
     word?: string,
     friend?: string,
     isYourTurn?: boolean,
     gamesQuantity?: number,
-    winQuantity?: number
+    winsQuantity?: number
 };
 
 export interface TableData {

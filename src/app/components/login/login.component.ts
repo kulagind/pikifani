@@ -19,10 +19,7 @@ export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
     name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(20),
-      Validators.pattern(this.nameRegExp)
+      Validators.required
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -37,6 +34,10 @@ export class LoginComponent implements OnInit {
       Validators.minLength(2),
       Validators.maxLength(20),
       Validators.pattern(this.nameRegExp)
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -70,7 +71,7 @@ export class LoginComponent implements OnInit {
     } else {
       if (!this.registerForm.invalid) {
         this.isPending = true;
-        this.authService.register$(this.registerForm.get('name').value, this.registerForm.get('password').value, this.registerForm.get('confirmPassword').value).subscribe(() => {
+        this.authService.register$(this.registerForm.get('name').value, this.registerForm.get('email').value, this.registerForm.get('password').value, this.registerForm.get('confirmPassword').value).subscribe(() => {
           this.isPending = false;
         });
       }

@@ -38,11 +38,12 @@ export class HttpService {
         );
     }
 
-    register(name: string, password: string, confirmPassword: string): Observable<JWT> {
+    register(name: string, email: string, password: string, confirmPassword: string): Observable<JWT> {
         return this.getPublicKeyForPassword().pipe(
             mergeMap(result => {
                 return this.http.post<JWT>(`${this.authUrl}/register`, {
                     name,
+                    email,
                     password: crypto.publicEncrypt(result.publicKey, Buffer.from(password, 'utf-8')).toString('base64'),
                     confirmPassword: crypto.publicEncrypt(result.publicKey, Buffer.from(confirmPassword, 'utf-8')).toString('base64'),
                     publicKey: result.publicKey
