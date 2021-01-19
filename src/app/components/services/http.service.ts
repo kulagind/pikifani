@@ -8,6 +8,7 @@ import { Chat } from 'src/app/interfaces/chat';
 import { environment } from 'src/environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import * as crypto from 'crypto';
+import { InvitesFromReq } from 'src/app/interfaces/invites';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class HttpService {
     private readonly chatUrl = `${environment.baseUrl}/chat`;
     private readonly userUrl = `${environment.baseUrl}/user`;
     private readonly authUrl = `${environment.baseUrl}/auth`;
+    private readonly friendUrl = `${environment.baseUrl}/friend`;
     private readonly sseUrl = `${environment.baseUrl}/sse`;
 
     constructor(
@@ -58,6 +60,14 @@ export class HttpService {
 
     private getPublicKeyForPassword(): Observable<PublicKey> {
         return this.http.get<PublicKey>(`${this.authUrl}/key`);
+    }
+
+    sendFriendInvite(name: string): Observable<User> {
+        return this.http.post<User>(`${this.friendUrl}`, {name});
+    }
+
+    getFriends(): Observable<InvitesFromReq> {
+        return this.http.get<InvitesFromReq>(`${this.friendUrl}/all`);
     }
 
     // getWaitingGames(): Observable<Waiting[]> {

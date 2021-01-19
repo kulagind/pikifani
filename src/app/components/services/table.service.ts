@@ -17,7 +17,7 @@ export class TableService {
             const keys = [...Object.keys(items[0]).filter(key => ColumnsNames.includes(key))];
             data.displayedColumns = [...keys],
             data.dataSource = [...items];
-        }
+        }        
         return {...data};
     }
 }

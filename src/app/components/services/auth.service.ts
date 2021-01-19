@@ -11,8 +11,9 @@ export const jwtHeades = 'x-jwt';
 })
 export class AuthService {
     private _id: string;
-    private user = new ReplaySubject<User>(1);
+    private userSubj = new ReplaySubject<User>(1);
     private _jwt: string;
+    private _user: User;
 
     constructor(
         private httpService: HttpService,
@@ -60,7 +61,7 @@ export class AuthService {
                 this.setUser(user);                
             })
         ).subscribe(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/']);            
         });
     } 
 
@@ -78,11 +79,16 @@ export class AuthService {
 
     private setUser(user: User): void {
         this._id = user._id;
-        this.user.next({...user, id: user._id});
+        this._user = {...user, id: user._id};
+        this.userSubj.next(this._user);
+    }
+
+    get user(): User {
+        return this._user;
     }
 
     get user$(): Observable<User> {
-        return this.user.asObservable();
+        return this.userSubj.asObservable();
     }
 
     get id(): string {

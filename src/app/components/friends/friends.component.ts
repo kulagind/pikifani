@@ -22,6 +22,11 @@ export class FriendsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.friendsService.getFriends();
+    this.setFriendsToTable();
+  }
+
+  private setFriendsToTable(): void {
     this.friendsService.friends$.subscribe(friends => {
       this.friends = this.tableService.toTable(friends);
     });
@@ -31,6 +36,10 @@ export class FriendsComponent implements OnInit {
     this.friendsService.sentFriendsInvites$.subscribe(friends => {
       this.sentInvites = this.tableService.toTable(friends);
     });
+  }
+
+  sendInvite(name: string): void {
+    this.friendsService.sendFriendInvite(name);
   }
 
 }
