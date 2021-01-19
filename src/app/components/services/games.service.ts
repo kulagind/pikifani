@@ -50,34 +50,34 @@ export class GamesService {
     }
 
     fetchWaitingGames(): void {
-        this.httpService.getWaitingGames().pipe(
-            tap(games => {
-                this.setWaitingGames(games);
-            })
-        ).subscribe();
+        // this.httpService.getWaitingGames().pipe(
+        //     tap(games => {
+        //         this.setWaitingGames(games);
+        //     })
+        // ).subscribe();
     }
 
     fetchGames(): void {
-        this.httpService.getGames().pipe(
-            tap(games => {
-                this.setGames(games);
-            })
-        ).subscribe();
+        // this.httpService.getGames().pipe(
+        //     tap(games => {
+        //         this.setGames(games);
+        //     })
+        // ).subscribe();
     }
 
     fetchReceivedGamesInvites(): void {
-        this.httpService.getReceivedInvites().pipe(
-            tap(games => {
-                this.setRecievedInvites(games);
-            })
-        ).subscribe();
+        // this.httpService.getReceivedInvites().pipe(
+        //     tap(games => {
+        //         this.setRecievedInvites(games);
+        //     })
+        // ).subscribe();
     }
 
     fetchSentGamesInvites(): void {
-        this.httpService.getSentInvites().pipe(
-            tap(games => {
-                this.setSentInvites(games);
-            })
-        ).subscribe();
+        // this.httpService.getSentInvites().pipe(
+        //     tap(games => {
+        //         this.setSentInvites(games);
+        //     })
+        // ).subscribe();
     }
 }

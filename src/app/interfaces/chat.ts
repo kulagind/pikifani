@@ -4,11 +4,11 @@ export interface Message {
     creationTime: Date,
     resultP: number,
     resultF: number,
-    authorId: number
+    authorId: string
 }
 
 export interface Chat {
     messages: Message[],
-    turnId: number,
+    turnId: string,
     word: string
 }

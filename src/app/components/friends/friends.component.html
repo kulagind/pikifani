@@ -5,7 +5,7 @@
             <mat-label>Имя или ID друга</mat-label>
             <input matInput type="text" [(ngModel)]="name">
         </mat-form-field> 
-        <button class="form__submit" mat-raised-button color="primary">Добавить</button>
+        <button class="form__submit" mat-raised-button color="primary" (click)="sendInvite(name)">Добавить</button>
     </div>
     
     <app-table *ngIf="friends" [data]="friends" title="Список друзей"></app-table>

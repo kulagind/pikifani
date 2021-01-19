@@ -2,7 +2,6 @@ import { TableService } from './../services/table.service';
 import { GamesService } from './../services/games.service';
 import { TableData } from 'src/app/interfaces/table';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { games } from 'src/app/mocks/mock-games';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
