@@ -18,11 +18,11 @@
                 <mat-checkbox class="form__elem" [color]="'primary'" formControlName="withFriend">Играть с другом</mat-checkbox>      
         
                 <mat-form-field class="form__elem">
-                    <mat-label>Имя или ID друга</mat-label>
-                    <input matInput type="text" formControlName="friendName">
+                    <mat-label>Имя, email или ID друга</mat-label>
+                    <input matInput type="text" formControlName="name">
                 </mat-form-field>
             </form>    
-            <button class="form_submit" mat-raised-button color="primary">Начать</button>
+            <button class="form_submit" mat-raised-button color="primary" (click)="createGame()">Начать</button>
         </div>
     </ng-template>
 

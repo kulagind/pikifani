@@ -18,7 +18,7 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   readonly word = 'word';
   readonly withFriend = 'withFriend';
-  readonly friendName = 'friendName';
+  readonly name = 'name';
 
   public waitingData: TableData;
   public receivedInvitesData: TableData;
@@ -34,7 +34,7 @@ export class NewGameComponent implements OnInit, OnDestroy {
       Validators.pattern('[А-Яа-я]{4}')
     ]),
     [this.withFriend]: new FormControl(false),
-    [this.friendName]: new FormControl({value: '', disabled: true}),
+    [this.name]: new FormControl({value: '', disabled: true}),
   });
 
   constructor(
@@ -57,11 +57,11 @@ export class NewGameComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe((withFriend: boolean) => {
       if (withFriend) {
-        this.newGameForm.get(this.friendName).enable();
-        this.newGameForm.get(this.friendName).setValidators([Validators.required]);
+        this.newGameForm.get(this.name).enable();
+        this.newGameForm.get(this.name).setValidators([Validators.required]);
       } else {
-        this.newGameForm.get(this.friendName).disable();
-        this.newGameForm.get(this.friendName).clearValidators();
+        this.newGameForm.get(this.name).disable();
+        this.newGameForm.get(this.name).clearValidators();
       }
     });
 
@@ -87,5 +87,12 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   openForm(): void {
     this.isFormOpened = true;
+  }
+
+  createGame(): void {
+    if (!this.newGameForm.invalid) {
+      console.log(this.newGameForm);
+      
+    }
   }
 }

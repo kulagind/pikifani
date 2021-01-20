@@ -21,6 +21,8 @@ import { MessageComponent } from './components/chat/message/message.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { HeadersInterceptor } from './interceptors/headers';
+import { ModalComponent } from './components/friends/modal/modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { HeadersInterceptor } from './interceptors/headers';
     TableComponent,
     ChatComponent,
     MessageComponent,
-    LoginComponent
+    LoginComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { HeadersInterceptor } from './interceptors/headers';
     MatButtonModule,
     MatTableModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     { 

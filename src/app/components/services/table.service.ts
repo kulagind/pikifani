@@ -1,6 +1,6 @@
 import { ColumnsNames } from './../../interfaces/table';
 import { User } from 'src/app/interfaces/user';
-import { RecievedInvite, SentInvite, TableData, Waiting, Game } from 'src/app/interfaces/table';
+import { ReceivedInvite, SentInvite, TableData, Waiting, Game } from 'src/app/interfaces/table';
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core";
 })
 export class TableService {
 
-    toTable(items: Waiting[] | Game[] | RecievedInvite[] | SentInvite[] | User[]): TableData {
+    toTable(items: Waiting[] | Game[] | ReceivedInvite[] | SentInvite[] | User[]): TableData {
         const data: TableData = {
             displayedColumns: [],
             dataSource: []

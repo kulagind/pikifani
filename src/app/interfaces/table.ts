@@ -19,7 +19,7 @@ export interface Waiting {
     word: string;
 }
 
-export interface RecievedInvite {
+export interface ReceivedInvite {
     id?: string;
     friend: string
 }
