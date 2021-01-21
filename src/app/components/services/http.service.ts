@@ -83,8 +83,6 @@ export class HttpService {
     }
 
     getWords(): any {
-       this.http.get(`${this.basicUrl}/word`).subscribe(words => {
-           console.log(words);
-       });
+       this.http.get(`${this.basicUrl}/word`);
     }
 }

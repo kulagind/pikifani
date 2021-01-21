@@ -58,10 +58,12 @@ export class NewGameComponent implements OnInit, OnDestroy {
     ).subscribe((withFriend: boolean) => {
       if (withFriend) {
         this.newGameForm.get(this.name).enable();
-        this.newGameForm.get(this.name).setValidators([Validators.required]);
+        this.newGameForm.get(this.name).setValidators([Validators.required, Validators.minLength(2)]);
+        this.newGameForm.get(this.name).setValue('');
       } else {
         this.newGameForm.get(this.name).disable();
         this.newGameForm.get(this.name).clearValidators();
+        this.newGameForm.get(this.name).setValue('');
       }
     });
 
@@ -91,8 +93,10 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   createGame(): void {
     if (!this.newGameForm.invalid) {
-      console.log(this.newGameForm);
-      
+      this.gamesService.createGame(this.newGameForm.value);
+      this.newGameForm.get(this.name).setValue('');
+      this.newGameForm.get(this.withFriend).setValue(false);
+      this.newGameForm.get(this.word).setValue('');
     }
   }
 }
