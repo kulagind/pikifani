@@ -1,6 +1,6 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { TableData } from 'src/app/interfaces/table';
+import { TableData } from '@interfaces/table';
 
 @Component({
   selector: 'app-table',

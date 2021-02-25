@@ -8,16 +8,16 @@
     </button>
     <ng-template #form>
         <div class="form-wrapper">
-            <h3 class="form-title">Начать новую игру</h3>
+            <h3 class="form-title">{{ receivedGame?.friend ? 'Начать игру с ' + receivedGame?.friend : 'Начать новую игру' }}</h3>
             <form [formGroup]="newGameForm" class="form">
                 <mat-form-field class="form__elem">
                     <mat-label>Слово из 4 букв</mat-label>
                     <input matInput type="text" formControlName="word" maxlength="4">
                 </mat-form-field>
         
-                <mat-checkbox class="form__elem" [color]="'primary'" formControlName="withFriend">Играть с другом</mat-checkbox>      
+                <mat-checkbox *ngIf="!receivedGame" class="form__elem" [color]="'primary'" formControlName="withFriend">Играть с другом</mat-checkbox>      
         
-                <mat-form-field class="form__elem">
+                <mat-form-field *ngIf="!receivedGame" class="form__elem">
                     <mat-label>Имя, email или ID друга</mat-label>
                     <input matInput type="text" formControlName="name">
                 </mat-form-field>
@@ -28,7 +28,7 @@
 
     <app-table *ngIf="waitingData" [data]="waitingData" title="Игры в очереди"></app-table>
 
-    <app-table *ngIf="receivedInvitesData" [data]="receivedInvitesData" title="Полученные приглашения"></app-table>
+    <app-table *ngIf="receivedInvitesData" [data]="receivedInvitesData" title="Полученные приглашения" (onClick)="receiveGame($event)"></app-table>
 
     <app-table *ngIf="sentInvitesData" [data]="sentInvitesData" title="Отправленные приглашения"></app-table>
 </div>

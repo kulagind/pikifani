@@ -1,7 +1,7 @@
-import { User } from 'src/app/interfaces/user';
-import { TableService } from './../services/table.service';
-import { FriendsService } from './../services/friends.service';
-import { TableData } from './../../interfaces/table';
+import { User } from '@interfaces/user';
+import { TableService } from '@services/table.service';
+import { FriendsService } from '@services/friends.service';
+import { TableData } from '@interfaces/table';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';

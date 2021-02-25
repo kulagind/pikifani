@@ -1,7 +1,7 @@
-import { TableData } from 'src/app/interfaces/table';
-import { TableService } from './../services/table.service';
-import { GamesService } from './../services/games.service';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { TableData, ReceivedInvite } from '@interfaces/table';
+import { TableService } from '@services/table.service';
+import { GamesService } from '@services/games.service';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
@@ -19,6 +19,8 @@ export class NewGameComponent implements OnInit, OnDestroy {
   readonly word = 'word';
   readonly withFriend = 'withFriend';
   readonly name = 'name';
+
+  public receivedGame: ReceivedInvite | null;
 
   public waitingData: TableData;
   public receivedInvitesData: TableData;
@@ -39,7 +41,8 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   constructor(
     private gamesService: GamesService,
-    private tableService: TableService
+    private tableService: TableService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnDestroy(): void {
@@ -78,12 +81,15 @@ export class NewGameComponent implements OnInit, OnDestroy {
   private setTables(): void {
     this.gamesService.waitingGames$.subscribe(games => {
       this.waitingData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
     this.gamesService.receivedInvites$.subscribe(games => {
       this.receivedInvitesData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
     this.gamesService.sentInvites$.subscribe(games => {
       this.sentInvitesData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
   }
 
@@ -93,10 +99,20 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   createGame(): void {
     if (!this.newGameForm.invalid) {
-      this.gamesService.createGame(this.newGameForm.value);
+      if (this.receivedGame?._id) {
+        this.gamesService.createGameChat({inviteId: this.receivedGame?._id, word: this.newGameForm.get(this.word).value});
+        this.receivedGame = null;
+      } else {
+        this.gamesService.createGameInvite(this.newGameForm.value);
+      }
       this.newGameForm.get(this.name).setValue('');
       this.newGameForm.get(this.withFriend).setValue(false);
       this.newGameForm.get(this.word).setValue('');
     }
+  }
+
+  receiveGame(item: ReceivedInvite): void {
+    this.openForm();
+    this.receivedGame = {...item};
   }
 }

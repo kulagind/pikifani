@@ -16,6 +16,11 @@
       "es2018",
       "dom"
     ],
-    "types": [ "node" ]
+    "types": [ "node" ],
+    "paths": {
+      "@services/*": ["src/app/services/*"],
+      "@components/*": ["src/app/components/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+    }
   }
 }

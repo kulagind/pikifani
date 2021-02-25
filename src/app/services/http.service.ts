@@ -1,5 +1,5 @@
-import { WaitingGame, SentGameInvite, GameInvitesFromReq } from './../../interfaces/invites';
-import { JWT, PublicKey } from './../../interfaces/token';
+import { WaitingGame, SentGameInvite, GameInvitesFromReq } from './../interfaces/invites';
+import { JWT, PublicKey } from './../interfaces/token';
 import { User } from 'src/app/interfaces/user';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import * as crypto from 'crypto';
 import { InvitesFromReq } from 'src/app/interfaces/invites';
+import { ChatFromRes, CreateChat } from 'src/app/interfaces/chat';
 
 @Injectable({
     providedIn: 'root'
@@ -20,8 +21,9 @@ export class HttpService {
     private readonly chatUrl = `${environment.baseUrl}/chat`;
     private readonly userUrl = `${environment.baseUrl}/user`;
     private readonly authUrl = `${environment.baseUrl}/auth`;
-    private readonly friendUrl = `${environment.baseUrl}/friend`;
-    private readonly gameUrl = `${environment.baseUrl}/game`;
+    private readonly friendUrl = `${environment.baseUrl}/friends`;
+    private readonly gameInvitesUrl = `${environment.baseUrl}/invites`;
+    private readonly gameChatsUrl = `${environment.baseUrl}/games`;
     private readonly sseUrl = `${environment.baseUrl}/sse`;
 
     constructor(
@@ -75,11 +77,19 @@ export class HttpService {
     }
 
     getGameInvites(): Observable<GameInvitesFromReq> {
-        return this.http.get<GameInvitesFromReq>(`${this.gameUrl}`);
+        return this.http.get<GameInvitesFromReq>(`${this.gameInvitesUrl}`);
     }
 
     createGame(newGame: WaitingGame | SentGameInvite): Observable<WaitingGame | SentGameInvite> {
-        return this.http.post<WaitingGame | SentGameInvite>(`${this.gameUrl}/create`, newGame);
+        return this.http.post<WaitingGame | SentGameInvite>(`${this.gameInvitesUrl}/create`, newGame);
+    }
+
+    getGameChats(): Observable<{chats: ChatFromRes[]}> {
+        return this.http.get<{chats: ChatFromRes[]}>(`${this.gameChatsUrl}`);
+    }
+
+    startGameChat(gameRes: CreateChat): Observable<ChatFromRes> {
+        return this.http.post<ChatFromRes>(`${this.gameChatsUrl}`, gameRes);
     }
 
     getWords(): any {

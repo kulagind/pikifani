@@ -1,9 +1,7 @@
-import { HttpService } from './../services/http.service';
+import { HttpService } from '@services/http.service';
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
-import { Chat } from 'src/app/interfaces/chat';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 
 @Component({
@@ -14,7 +12,6 @@ import { ReplaySubject } from 'rxjs';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
-  chat: Chat;
 
   wordForm: FormGroup = new FormGroup({
     l1: new FormControl(''),
@@ -46,19 +43,19 @@ export class ChatComponent implements OnInit, OnDestroy {
     //   this.chat = chat;
     // });
 
-    this.listenForm();
+    // this.listenForm();
   }
 
-  private listenForm(): void {
-    if (this.chat.turnId !== this.authService.id) {
-      this.wordInput.disable();
-    }
+  // private listenForm(): void {
+  //   if (this.chat.turnId !== this.authService.id) {
+  //     this.wordInput.disable();
+  //   }
 
-    this.wordInput.valueChanges.pipe(
-      debounceTime(100),
-      takeUntil(this.destroy$)
-    ).subscribe((word: string) => {
-      this.wordInput.setValue(word.trim());
-    });
-  }
+  //   this.wordInput.valueChanges.pipe(
+  //     debounceTime(100),
+  //     takeUntil(this.destroy$)
+  //   ).subscribe((word: string) => {
+  //     this.wordInput.setValue(word.trim());
+  //   });
+  // }
 }

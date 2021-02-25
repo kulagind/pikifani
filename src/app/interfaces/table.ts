@@ -20,7 +20,7 @@ export interface Waiting {
 }
 
 export interface ReceivedInvite {
-    id?: string;
+    _id?: string;
     friend: string
 }
 
