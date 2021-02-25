@@ -1,14 +1,14 @@
-import { JWT, PublicKey } from './../../interfaces/token';
+import { WaitingGame, SentGameInvite, GameInvitesFromReq } from './../interfaces/invites';
+import { JWT, PublicKey } from './../interfaces/token';
 import { User } from 'src/app/interfaces/user';
-import { Game, RecievedInvite, SentInvite, Waiting } from './../../interfaces/table';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Chat } from 'src/app/interfaces/chat';
 import { environment } from 'src/environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import * as crypto from 'crypto';
 import { InvitesFromReq } from 'src/app/interfaces/invites';
+import { ChatFromRes, CreateChat } from 'src/app/interfaces/chat';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +21,9 @@ export class HttpService {
     private readonly chatUrl = `${environment.baseUrl}/chat`;
     private readonly userUrl = `${environment.baseUrl}/user`;
     private readonly authUrl = `${environment.baseUrl}/auth`;
-    private readonly friendUrl = `${environment.baseUrl}/friend`;
+    private readonly friendUrl = `${environment.baseUrl}/friends`;
+    private readonly gameInvitesUrl = `${environment.baseUrl}/invites`;
+    private readonly gameChatsUrl = `${environment.baseUrl}/games`;
     private readonly sseUrl = `${environment.baseUrl}/sse`;
 
     constructor(
@@ -70,70 +72,27 @@ export class HttpService {
         return this.http.get<InvitesFromReq>(`${this.friendUrl}/all`);
     }
 
-    // getWaitingGames(): Observable<Waiting[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<Waiting[]>(url);
-    //     return of(waitingGames);
-    // }
+    addFriend(id: string): Observable<User> {
+        return this.http.post<User>(`${this.friendUrl}/add`, {id});
+    }
 
-    // createGame(): Observable<void> {
-    // }
+    getGameInvites(): Observable<GameInvitesFromReq> {
+        return this.http.get<GameInvitesFromReq>(`${this.gameInvitesUrl}`);
+    }
 
-    // getSentInvites(): Observable<SentInvite[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<SentInvite[]>(url);
-    //     return of(sentInvites);
-    // }
+    createGame(newGame: WaitingGame | SentGameInvite): Observable<WaitingGame | SentGameInvite> {
+        return this.http.post<WaitingGame | SentGameInvite>(`${this.gameInvitesUrl}/create`, newGame);
+    }
 
-    // getReceivedInvites(): Observable<RecievedInvite[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<RecievedInvite[]>(url);
-    //     return of(receivedInvites);
-    // }
+    getGameChats(): Observable<{chats: ChatFromRes[]}> {
+        return this.http.get<{chats: ChatFromRes[]}>(`${this.gameChatsUrl}`);
+    }
 
-    // getGames(): Observable<Game[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<Game[]>(url);
-    //     return of(games);
-    // }
-
-    // getFriends(): Observable<User[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<Game[]>(url);
-    //     return of(friends);
-    // }
-
-    // getSentFriendsInvites(): Observable<User[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<Game[]>(url);
-    //     return of(receivedFriendsInvites);
-    // }
-
-    // getReceivedFriendsInvites(): Observable<User[]> {
-    //     const url = `${this.basicUrl}/${this.userId}`;
-    //     // this.httpClient.get<Game[]>(url);
-    //     return of(sentFriendsInvites);
-    // }
-
-    // getChatById(chatId?: number): Observable<Chat> {
-    //     const url = `${this.basicUrl}/${chatId}`;
-    //     // this.httpClient.get<Chat>(url);
-    //     return of(mockChat);
-    // }
-
-    // connetToChatById(chatId?: number): any {
-    //     console.log(chatId);
-        
-    //     let chat = new EventSource(`${this.sseUrl}/${chatId}`);
-
-    //     chat.onmessage = (event: MessageEvent) => {
-    //         console.log(JSON.parse(event.data));
-    //     }
-    // }
+    startGameChat(gameRes: CreateChat): Observable<ChatFromRes> {
+        return this.http.post<ChatFromRes>(`${this.gameChatsUrl}`, gameRes);
+    }
 
     getWords(): any {
-       this.http.get(`${this.basicUrl}/word`).subscribe(words => {
-           console.log(words);
-       });
+       this.http.get(`${this.basicUrl}/word`);
     }
 }

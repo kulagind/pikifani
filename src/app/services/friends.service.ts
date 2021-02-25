@@ -2,8 +2,6 @@ import { User } from 'src/app/interfaces/user';
 import { HttpService } from './http.service';
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { InvitesFromReq } from 'src/app/interfaces/invites';
 
 @Injectable({
@@ -15,15 +13,18 @@ export class FriendsService {
     private receivedFriendsInvites = new ReplaySubject<User[]>(1);
 
     constructor(
-        private httpService: HttpService,
-        private authService: AuthService
-    ) { }
-
-    sendFriendInvite(name: string): void {
-        this.httpService.sendFriendInvite(name).subscribe();
+        private httpService: HttpService
+    ) {
+        this.getFriends();
     }
 
-    getFriends(): void {
+    sendFriendInvite(name: string): void {
+        this.httpService.sendFriendInvite(name).subscribe(() => {
+            this.getFriends();
+        });
+    }
+
+    private getFriends(): void {
         this.httpService.getFriends().subscribe((result: InvitesFromReq) => {
             this.sentFriendsInvites.next(result.sent);
             this.receivedFriendsInvites.next(result.received);
@@ -31,24 +32,18 @@ export class FriendsService {
         });
     }
 
-    private setFriends(friends: User[]): void {
-        this.friends.next(friends);
+    addFriend(id: string): void {
+        this.httpService.addFriend(id).subscribe(() => {
+            this.getFriends();
+        });
     }
 
     get friends$(): Observable<User[]> {
         return this.friends.asObservable();
     }
-    
-    private setReceivedFriendsInvites(friends: User[]): void {
-        this.receivedFriendsInvites.next(friends);
-    }
 
     get receivedFriendsInvites$(): Observable<User[]> {
         return this.receivedFriendsInvites.asObservable();
-    }
-    
-    private setSentFriendsInvites(friends: User[]): void {
-        this.sentFriendsInvites.next(friends);
     }
 
     get sentFriendsInvites$(): Observable<User[]> {

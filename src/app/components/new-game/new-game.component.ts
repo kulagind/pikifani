@@ -1,7 +1,7 @@
-import { TableData } from 'src/app/interfaces/table';
-import { TableService } from './../services/table.service';
-import { GamesService } from './../services/games.service';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { TableData, ReceivedInvite } from '@interfaces/table';
+import { TableService } from '@services/table.service';
+import { GamesService } from '@services/games.service';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
@@ -18,7 +18,9 @@ export class NewGameComponent implements OnInit, OnDestroy {
 
   readonly word = 'word';
   readonly withFriend = 'withFriend';
-  readonly friendName = 'friendName';
+  readonly name = 'name';
+
+  public receivedGame: ReceivedInvite | null;
 
   public waitingData: TableData;
   public receivedInvitesData: TableData;
@@ -34,12 +36,13 @@ export class NewGameComponent implements OnInit, OnDestroy {
       Validators.pattern('[А-Яа-я]{4}')
     ]),
     [this.withFriend]: new FormControl(false),
-    [this.friendName]: new FormControl({value: '', disabled: true}),
+    [this.name]: new FormControl({value: '', disabled: true}),
   });
 
   constructor(
     private gamesService: GamesService,
-    private tableService: TableService
+    private tableService: TableService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnDestroy(): void {
@@ -57,11 +60,13 @@ export class NewGameComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe((withFriend: boolean) => {
       if (withFriend) {
-        this.newGameForm.get(this.friendName).enable();
-        this.newGameForm.get(this.friendName).setValidators([Validators.required]);
+        this.newGameForm.get(this.name).enable();
+        this.newGameForm.get(this.name).setValidators([Validators.required, Validators.minLength(2)]);
+        this.newGameForm.get(this.name).setValue('');
       } else {
-        this.newGameForm.get(this.friendName).disable();
-        this.newGameForm.get(this.friendName).clearValidators();
+        this.newGameForm.get(this.name).disable();
+        this.newGameForm.get(this.name).clearValidators();
+        this.newGameForm.get(this.name).setValue('');
       }
     });
 
@@ -76,16 +81,38 @@ export class NewGameComponent implements OnInit, OnDestroy {
   private setTables(): void {
     this.gamesService.waitingGames$.subscribe(games => {
       this.waitingData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
     this.gamesService.receivedInvites$.subscribe(games => {
       this.receivedInvitesData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
     this.gamesService.sentInvites$.subscribe(games => {
       this.sentInvitesData = this.tableService.toTable(games);
+      this.cdr.detectChanges();
     });
   }
 
   openForm(): void {
     this.isFormOpened = true;
+  }
+
+  createGame(): void {
+    if (!this.newGameForm.invalid) {
+      if (this.receivedGame?._id) {
+        this.gamesService.createGameChat({inviteId: this.receivedGame?._id, word: this.newGameForm.get(this.word).value});
+        this.receivedGame = null;
+      } else {
+        this.gamesService.createGameInvite(this.newGameForm.value);
+      }
+      this.newGameForm.get(this.name).setValue('');
+      this.newGameForm.get(this.withFriend).setValue(false);
+      this.newGameForm.get(this.word).setValue('');
+    }
+  }
+
+  receiveGame(item: ReceivedInvite): void {
+    this.openForm();
+    this.receivedGame = {...item};
   }
 }

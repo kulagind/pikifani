@@ -1,6 +1,6 @@
-import { AuthService } from './../../services/auth.service';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TableData } from 'src/app/interfaces/table';
+import { AuthService } from '@services/auth.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { TableData } from '@interfaces/table';
 
 @Component({
   selector: 'app-table',
@@ -12,12 +12,16 @@ export class TableComponent implements OnInit {
 
   @Input() data: TableData;
   @Input() title: string;
-  @Input() action: (id: number) => {};
+  @Output() onClick = new EventEmitter<any>();
 
   constructor(
     public authService: AuthService
   ) { }
 
   ngOnInit(): void {    
+  }
+
+  action(row: any): void {
+    this.onClick.emit(row);
   }
 }

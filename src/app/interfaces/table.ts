@@ -19,8 +19,8 @@ export interface Waiting {
     word: string;
 }
 
-export interface RecievedInvite {
-    id?: string;
+export interface ReceivedInvite {
+    _id?: string;
     friend: string
 }
 

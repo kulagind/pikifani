@@ -10,7 +10,7 @@
     
     <app-table *ngIf="friends" [data]="friends" title="Список друзей"></app-table>
 
-    <app-table *ngIf="receivedInvites" [data]="receivedInvites" title="Входящие заявки"></app-table>
+    <app-table *ngIf="receivedInvites" [data]="receivedInvites" title="Входящие заявки" (onClick)="openInviteModal($event, 'received')"></app-table>
 
     <app-table *ngIf="sentInvites" [data]="sentInvites" title="Отправленные заявки"></app-table>
 </div>

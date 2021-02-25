@@ -7,8 +7,14 @@ export interface Message {
     authorId: string
 }
 
-export interface Chat {
-    messages: Message[],
+export interface ChatFromRes {
+    _id: string,
+    word: string,
     turnId: string,
-    word: string
+    friend: string
+}
+
+export interface CreateChat {
+    word: string,
+    inviteId: string
 }

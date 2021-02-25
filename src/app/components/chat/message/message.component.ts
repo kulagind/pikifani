@@ -1,6 +1,6 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Message } from 'src/app/interfaces/chat';
+import { Message } from '@interfaces/chat';
 
 @Component({
   selector: 'app-message',

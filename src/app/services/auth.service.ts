@@ -24,7 +24,7 @@ export class AuthService {
         return this.httpService.login(login, password).pipe(
             tap(result => {
                 this.setToken(result.jwt, result.header);
-                this.initCurrentUser();
+                this.initUser$().subscribe();
             })
         );
     }
@@ -33,7 +33,7 @@ export class AuthService {
         return this.httpService.register(login, email, password, confirmPassword).pipe(
             tap(result => {
                 this.setToken(result.jwt, result.header);
-                this.initCurrentUser();
+                this.initUser$().subscribe();
             })
         );
     }
@@ -55,15 +55,16 @@ export class AuthService {
 
     }
 
-    initCurrentUser(): void {
-        this.httpService.getCurrentUser().pipe(
+    initUser$(): Observable<void | User> {
+       return this.httpService.getCurrentUser().pipe(
             tap(user => {
-                this.setUser(user);                
+                if (user) {
+                    this.setUser(user);
+                    this.router.navigate(['/']);
+                }
             })
-        ).subscribe(() => {
-            this.router.navigate(['/']);            
-        });
-    } 
+       );
+    }
 
     get jwt(): string {
         return this._jwt;
