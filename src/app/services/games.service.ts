@@ -1,31 +1,34 @@
-import { HttpService } from './http.service';
-import { ReceivedInvite, SentInvite, Waiting } from 'src/app/interfaces/table';
+import { SseService } from '@services/sse.service';
+import { GameInvitesFromReq } from '@interfaces/invites';
+import { HttpService } from '@services/http.service';
+import { ReceivedInvite, SentInvite, Waiting } from '@interfaces/table';
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject } from 'rxjs';
-import { SentGameInvite, WaitingGame } from 'src/app/interfaces/invites';
-import { ChatFromRes, CreateChat } from 'src/app/interfaces/chat';
+import { SentGameInvite, WaitingGame } from '@interfaces/invites';
+import { ChatFromRes, CreateChat } from '@interfaces/chat';
+import { SseMessageHandlable, SSEType } from '@interfaces/sse';
 
 @Injectable({
     providedIn: 'root'
 })
-export class GamesService {
+export class GamesService implements SseMessageHandlable {
     private waitingGames = new ReplaySubject<Waiting[]>(1);
     private receivedInvites = new ReplaySubject<ReceivedInvite[]>(1);
     private sentInvites = new ReplaySubject<SentInvite[]>(1);
     private games = new ReplaySubject<ChatFromRes[]>(1);
 
     constructor(
-        private httpService: HttpService
+        private httpService: HttpService,
+        private sseService: SseService
     ) {
         this.getGameInvites();
         this.getGameChats();
+        this.sseService.setMessageHandler(SSEType.invites, this);
     }
 
     private getGameInvites(): void {
         this.httpService.getGameInvites().subscribe(result => {
-            this.waitingGames.next(result.waiting);
-            this.receivedInvites.next(result.received);
-            this.sentInvites.next(result.sent);
+            this.setData(result);
         });
     }
 
@@ -36,15 +39,17 @@ export class GamesService {
     }
 
     createGameInvite(newGame: WaitingGame | SentGameInvite): void {
-        this.httpService.createGame(newGame).subscribe(() => {
-            this.getGameInvites();
-        });
+        this.httpService.createGame(newGame).subscribe();
     }
 
     createGameChat(newGame: CreateChat): void {
-        this.httpService.startGameChat(newGame).subscribe(() => {
-            this.getGameChats();
-        });
+        this.httpService.startGameChat(newGame).subscribe();
+    }
+
+    setData(data: GameInvitesFromReq): void {
+        this.waitingGames.next(data.waiting);
+        this.receivedInvites.next(data.received);
+        this.sentInvites.next(data.sent);
     }
 
     get waitingGames$(): Observable<Waiting[]> {

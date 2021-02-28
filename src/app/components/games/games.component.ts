@@ -31,8 +31,6 @@ export class GamesComponent implements OnInit {
   }
 
   open(item: ChatFromRes): void {
-    console.log(item);
-    
-    // this.router.navigate([gameId], {relativeTo: this.activatedRoute});
+    this.router.navigate([item.gameId], {relativeTo: this.activatedRoute});
   }
 }

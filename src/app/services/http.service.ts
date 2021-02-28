@@ -24,7 +24,6 @@ export class HttpService {
     private readonly friendUrl = `${environment.baseUrl}/friends`;
     private readonly gameInvitesUrl = `${environment.baseUrl}/invites`;
     private readonly gameChatsUrl = `${environment.baseUrl}/games`;
-    private readonly sseUrl = `${environment.baseUrl}/sse`;
 
     constructor(
         private http: HttpClient

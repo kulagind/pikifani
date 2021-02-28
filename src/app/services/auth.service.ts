@@ -1,8 +1,9 @@
+import { SseService } from './sse.service';
 import { HttpService } from './http.service';
 import { Injectable } from "@angular/core";
 import { ReplaySubject, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
-import { mergeMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 export const jwtHeades = 'x-jwt';
@@ -17,7 +18,8 @@ export class AuthService {
 
     constructor(
         private httpService: HttpService,
-        private router: Router
+        private router: Router,
+        private sseService: SseService
     ) { }
 
     login$(login: string, password: string): Observable<any> {
@@ -45,6 +47,7 @@ export class AuthService {
         this._jwt = '';
         this._id = '';
         this.router.navigate(['/login']);
+        this.sseService.close();
     }
 
     changePassword(): void {
@@ -82,6 +85,7 @@ export class AuthService {
         this._id = user._id;
         this._user = {...user, id: user._id};
         this.userSubj.next(this._user);
+        this.sseService.connect(this._id);
     }
 
     get user(): User {

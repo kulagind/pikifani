@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '@services/http.service';
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@services/auth.service';
@@ -12,6 +13,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
+  private gameId: string = '';
 
   wordForm: FormGroup = new FormGroup({
     l1: new FormControl(''),
@@ -31,7 +33,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private httpService: HttpService,
-    public authService: AuthService
+    public authService: AuthService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnDestroy(): void {
@@ -39,11 +42,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setGameId();
     // this.httpService.getChatById().subscribe(chat => {
     //   this.chat = chat;
     // });
 
     // this.listenForm();
+  }
+
+  private setGameId(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.gameId = params.id;
+      console.log(this.gameId);
+      
+    })
   }
 
   // private listenForm(): void {
