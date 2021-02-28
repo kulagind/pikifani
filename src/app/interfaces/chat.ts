@@ -8,7 +8,7 @@ export interface Message {
 }
 
 export interface ChatFromRes {
-    _id: string,
+    gameId: string,
     word: string,
     turnId: string,
     friend: string
