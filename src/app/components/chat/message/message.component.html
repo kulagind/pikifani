@@ -8,11 +8,11 @@
         </div>
         <div [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-start' : 'flex-end'}"
              class="message__date">
-            {{ message.creationTime | date:'dd.MM.yy hh:mm' }}
+            {{ message.creationTime | date:'dd.MM.yy HH:mm' }}
         </div> 
     </div>
     <div *ngIf="message.authorId === authService.id"
          class="result">
-        {{ message.resultP }} п  |  {{ message.resultF }} ф
+        {{ message.p }} п  |  {{ message.f }} ф
     </div>
 </div>

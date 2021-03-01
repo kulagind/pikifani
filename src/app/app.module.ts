@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@components/login/login.component';
 import { HeadersInterceptor } from './interceptors/headers';
 import { ModalComponent } from '@components/friends/modal/modal.component';
+import { ResultComponent } from '@components/chat/modal/result.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { initFactory } from './models/initFactory';
 
@@ -38,7 +39,8 @@ import { initFactory } from './models/initFactory';
     ChatComponent,
     MessageComponent,
     LoginComponent,
-    ModalComponent
+    ModalComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

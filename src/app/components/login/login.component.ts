@@ -1,3 +1,4 @@
+import { ApplicationRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@services/auth.service';
@@ -54,10 +55,11 @@ export class LoginComponent implements OnInit {
   isLogin = true;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private app: ApplicationRef
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
   }
 
   auth(): void {

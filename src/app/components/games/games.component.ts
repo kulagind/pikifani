@@ -27,7 +27,7 @@ export class GamesComponent implements OnInit {
     this.gamesService.games$.subscribe(games => {
       this.games = this.tableService.toTable(games);
       this.cdr.detectChanges();
-    })
+    });
   }
 
   open(item: ChatFromRes): void {
