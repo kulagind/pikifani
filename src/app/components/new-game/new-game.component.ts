@@ -50,6 +50,7 @@ export class NewGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.gamesService.getGameInvites();
     this.setTables();
     this.listenForm();
   }

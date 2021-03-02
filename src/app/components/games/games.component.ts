@@ -24,6 +24,8 @@ export class GamesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.gamesService.getGameChats();
+
     this.gamesService.games$.subscribe(games => {
       this.games = this.tableService.toTable(games);
       this.cdr.detectChanges();

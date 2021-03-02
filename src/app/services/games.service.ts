@@ -22,8 +22,6 @@ export class GamesService {
         private httpService: HttpService,
         private sseService: SseService
     ) {
-        this.getGameInvites();
-        this.getGameChats();
         this.sseService.setMessageHandler(SSEType.invites, this.setInvitesData.bind(this));
         this.sseService.setMessageHandler(SSEType.games, this.setGamesData.bind(this));
     }

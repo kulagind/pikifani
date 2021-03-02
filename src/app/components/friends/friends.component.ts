@@ -28,6 +28,7 @@ export class FriendsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.friendsService.getFriends();
     this.setFriendsToTable();
   }
 

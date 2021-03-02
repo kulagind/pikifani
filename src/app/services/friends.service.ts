@@ -17,8 +17,7 @@ export class FriendsService {
     constructor(
         private httpService: HttpService,
         private sseService: SseService
-    ) {        
-        this.getFriends();
+    ) {
         this.sseService.setMessageHandler(SSEType.friends, this.setData.bind(this));
     }
 

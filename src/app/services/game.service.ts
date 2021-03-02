@@ -25,14 +25,14 @@ export class GameService {
     }
 
     setGame(data: OpenedGame): void {
-        this.openedGame.next(data);        
+        this.openedGame.next(data);
         if (data.winner && data.info.gameId === this._openedGameId) {
             this.openResultDialog(this._openedGameId);
         }
     }
 
     setGameFromSSE(data: OpenedGame): void {
-        if (this._openedGameId !== data.info.gameId) {
+        if (this._openedGameId === data.info.gameId) {
             this.setGame(data);
         }
     }
