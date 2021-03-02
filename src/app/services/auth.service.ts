@@ -5,6 +5,7 @@ import { ReplaySubject, Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SSEType } from '@interfaces/sse';
 
 export const jwtHeades = 'x-jwt';
 @Injectable({
@@ -20,7 +21,9 @@ export class AuthService {
         private httpService: HttpService,
         private router: Router,
         private sseService: SseService
-    ) { }
+    ) {
+        this.sseService.setMessageHandler(SSEType.user, this.updateUserInfo.bind(this));
+    }
 
     login$(login: string, password: string): Observable<any> {
         return this.httpService.login(login, password).pipe(
@@ -82,10 +85,14 @@ export class AuthService {
     }
 
     private setUser(user: User): void {
+        this.updateUserInfo(user);
+        this.sseService.connect(this._id);
+    }
+
+    updateUserInfo(user: User): void {
         this._id = user._id;
         this._user = {...user, id: user._id};
         this.userSubj.next(this._user);
-        this.sseService.connect(this._id);
     }
 
     get user(): User {

@@ -1,8 +1,10 @@
+import { SseService } from '@services/sse.service';
 import { User } from 'src/app/interfaces/user';
 import { HttpService } from './http.service';
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject } from 'rxjs';
 import { InvitesFromReq } from 'src/app/interfaces/invites';
+import { SSEType } from '@interfaces/sse';
 
 @Injectable({
     providedIn: 'root'
@@ -13,29 +15,30 @@ export class FriendsService {
     private receivedFriendsInvites = new ReplaySubject<User[]>(1);
 
     constructor(
-        private httpService: HttpService
+        private httpService: HttpService,
+        private sseService: SseService
     ) {
-        this.getFriends();
+        this.sseService.setMessageHandler(SSEType.friends, this.setData.bind(this));
     }
 
     sendFriendInvite(name: string): void {
-        this.httpService.sendFriendInvite(name).subscribe(() => {
-            this.getFriends();
-        });
+        this.httpService.sendFriendInvite(name).subscribe();
     }
 
-    private getFriends(): void {
+    getFriends(): void {
         this.httpService.getFriends().subscribe((result: InvitesFromReq) => {
-            this.sentFriendsInvites.next(result.sent);
-            this.receivedFriendsInvites.next(result.received);
-            this.friends.next(result.friends);
+            this.setData(result);
         });
     }
 
     addFriend(id: string): void {
-        this.httpService.addFriend(id).subscribe(() => {
-            this.getFriends();
-        });
+        this.httpService.addFriend(id).subscribe();
+    }
+
+    private setData(data: InvitesFromReq): void {
+        this.sentFriendsInvites.next(data.sent);
+        this.receivedFriendsInvites.next(data.received);
+        this.friends.next(data.friends);
     }
 
     get friends$(): Observable<User[]> {

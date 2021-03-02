@@ -1,7 +1,7 @@
-<div class="relative">
-    <!-- <div *ngIf="chat" class="container">
+<div *ngIf="(gameService.openedGame$ | async) as chat" class="relative">
+    <div class="container">
         <div class="container__word">
-            <div>{{ chat.word }}</div>
+            <div>{{ chat.info.word }}</div>
     
             <form [formGroup]="wordForm" class="form">
                 <mat-form-field class="form__elem">
@@ -21,7 +21,10 @@
     
         <div class="container__chat">
             <ng-container *ngFor="let message of chat.messages">
-                <app-message [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-end' : 'flex-start'}" class="container__chat_message" [message]="message"></app-message>
+                <app-message [ngStyle]="{'align-self': message.authorId === authService.id ? 'flex-end' : 'flex-start'}" 
+                             class="container__chat_message" 
+                             [message]="message">
+                </app-message>
             </ng-container>
         </div>    
     </div>
@@ -32,6 +35,11 @@
             <input matInput type="text" [formControl]="wordInput" maxlength="4">
         </mat-form-field>
     
-        <button class="input-form_button" mat-raised-button color="primary" [disabled]="chat.turnId !== authService.id">Отправить</button>
-    </div> -->
+        <button class="input-form_button" 
+                mat-raised-button color="primary" 
+                [disabled]="chat.info.turnId !== authService.id && !chat.winner"
+                (click)="sendMessage()">
+            Отправить
+        </button>
+    </div>
 </div>

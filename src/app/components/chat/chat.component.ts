@@ -1,9 +1,11 @@
+import { MatDialog } from '@angular/material/dialog';
+import { GameService } from '@services/game.service';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '@services/http.service';
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
@@ -13,7 +15,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
-  private gameId: string = '';
+  isButtonDisabled: boolean = true;
 
   wordForm: FormGroup = new FormGroup({
     l1: new FormControl(''),
@@ -32,42 +34,41 @@ export class ChatComponent implements OnInit, OnDestroy {
   private destroy$ = new ReplaySubject<void>(1);
 
   constructor(
-    private httpService: HttpService,
+    public gameService: GameService,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnDestroy(): void {
+    this.gameService.setOpenedGameId('');
     this.destroy$.next();
   }
 
   ngOnInit(): void {
-    this.setGameId();
-    // this.httpService.getChatById().subscribe(chat => {
-    //   this.chat = chat;
-    // });
-
-    // this.listenForm();
+    this.setGame();
+    this.listenForm();
   }
 
-  private setGameId(): void {
-    this.activatedRoute.params.subscribe(params => {
-      this.gameId = params.id;
-      console.log(this.gameId);
-      
-    })
+  private setGame(): void {
+    this.activatedRoute.params.pipe(take(1)).subscribe(params => {
+      this.gameService.findGame(params.id);
+    });
   }
 
-  // private listenForm(): void {
-  //   if (this.chat.turnId !== this.authService.id) {
-  //     this.wordInput.disable();
-  //   }
+  private listenForm(): void {
+    this.wordInput.valueChanges.pipe(
+      debounceTime(100),
+      takeUntil(this.destroy$)
+    ).subscribe((word: string) => {
+      this.wordInput.setValue(word.trim());
+    });
+  }
 
-  //   this.wordInput.valueChanges.pipe(
-  //     debounceTime(100),
-  //     takeUntil(this.destroy$)
-  //   ).subscribe((word: string) => {
-  //     this.wordInput.setValue(word.trim());
-  //   });
-  // }
+  sendMessage(): void {
+    if (this.wordInput.valid) {
+      this.gameService.sendMessage(this.wordInput.value).subscribe(() => {
+        this.wordInput.setValue('');
+      });
+    }
+  }
 }

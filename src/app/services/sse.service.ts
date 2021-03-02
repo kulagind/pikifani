@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { SseMessageHandlable, SSEType } from "@interfaces/sse";
+import { SSEType } from "@interfaces/sse";
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class SseService {
     
     private readonly sseUrl = `${environment.baseUrl}/sse`;
 
-    private sseMap = new Map<SSEType, SseMessageHandlable>();
+    private sseMap = new Map<SSEType, (data: any) => any>();
 
     constructor(
     ) { }
@@ -29,7 +29,7 @@ export class SseService {
         this._isConnected = false;
     }
 
-    setMessageHandler(type: SSEType, handler: SseMessageHandlable) {
+    setMessageHandler(type: SSEType, handler: (data: any) => any) {
         if (!this.sseMap.get(type)) {
             this.sseMap.set(type, handler);
         }
@@ -43,7 +43,7 @@ export class SseService {
         this._connection.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
             if (this.sseMap.get(data.type)) {
-                this.sseMap.get(data.type).setData(data.payload);
+                this.sseMap.get(data.type)(data.payload);
             }
         });
     }

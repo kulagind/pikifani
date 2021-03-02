@@ -1,14 +1,15 @@
-import { WaitingGame, SentGameInvite, GameInvitesFromReq } from './../interfaces/invites';
-import { JWT, PublicKey } from './../interfaces/token';
-import { User } from 'src/app/interfaces/user';
+import { GameResult, OpenedGame } from '@interfaces/chat';
+import { WaitingGame, SentGameInvite, GameInvitesFromReq } from '@interfaces/invites';
+import { JWT, PublicKey } from '@interfaces/token';
+import { User } from '@interfaces/user';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import * as crypto from 'crypto';
-import { InvitesFromReq } from 'src/app/interfaces/invites';
-import { ChatFromRes, CreateChat } from 'src/app/interfaces/chat';
+import { InvitesFromReq } from '@interfaces/invites';
+import { ChatFromRes, CreateChat } from '@interfaces/chat';
 
 @Injectable({
     providedIn: 'root'
@@ -89,6 +90,18 @@ export class HttpService {
 
     startGameChat(gameRes: CreateChat): Observable<ChatFromRes> {
         return this.http.post<ChatFromRes>(`${this.gameChatsUrl}`, gameRes);
+    }
+
+    getCurrentGame(id: string): Observable<OpenedGame> {
+        return this.http.get<OpenedGame>(`${this.chatUrl}/${id}`);
+    }
+
+    sendMessage(id: string, message: string): Observable<void> {
+        return this.http.post<void>(`${this.chatUrl}/${id}`, {word: message});
+    }
+
+    getResult(id: string): Observable<GameResult> {
+        return this.http.get<GameResult>(`${this.chatUrl}/result/${id}`);
     }
 
     getWords(): any {
