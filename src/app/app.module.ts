@@ -27,6 +27,8 @@ import { ModalComponent } from '@components/friends/modal/modal.component';
 import { ResultComponent } from '@components/chat/modal/result.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { initFactory } from './models/initFactory';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { initFactory } from './models/initFactory';
     MatTableModule,
     HttpClientModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { 
