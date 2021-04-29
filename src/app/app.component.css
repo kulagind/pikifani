@@ -23,9 +23,6 @@
     .tab__title {
         display: none;
     }
-    .tab {
-        height: 30px;
-    }
     .page__content {
         width: 100%;
     }
