@@ -2,9 +2,11 @@ import { TableData, ReceivedInvite } from '@interfaces/table';
 import { TableService } from '@services/table.service';
 import { GamesService } from '@services/games.service';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, map, mergeMap, startWith, takeUntil } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
+import { FriendsService } from '@services/friends.service';
+import { User } from '@interfaces/user';
 
 @Component({
   selector: 'app-new-game',
@@ -39,10 +41,13 @@ export class NewGameComponent implements OnInit, OnDestroy {
     [this.name]: new FormControl({value: '', disabled: true}),
   });
 
+  public filteredOptions: Observable<User[]>;
+
   constructor(
     private gamesService: GamesService,
     private tableService: TableService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private friendsService: FriendsService
   ) { }
 
   ngOnDestroy(): void {
@@ -50,9 +55,25 @@ export class NewGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.friendsService.getFriends();
     this.gamesService.getGameInvites();
     this.setTables();
     this.listenForm();
+    this.setAutocomplete();
+  }
+
+  private setAutocomplete() {
+    this.filteredOptions = this.newGameForm.get('name').valueChanges.pipe(
+      startWith(''),
+      map((value: User) => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filter(name) : this.friendsService._friends.slice())
+    );
+  }
+
+  private _filter(name: string = ''): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.friendsService._friends.filter(friend => friend.name.toLowerCase().includes(filterValue));
   }
 
   private listenForm(): void {

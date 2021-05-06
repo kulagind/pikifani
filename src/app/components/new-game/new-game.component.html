@@ -19,7 +19,12 @@
         
                 <mat-form-field *ngIf="!receivedGame" class="form__elem">
                     <mat-label>Имя, email или ID друга</mat-label>
-                    <input matInput type="text" formControlName="name">
+                    <input matInput type="text" formControlName="name" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option [value]="option.name" *ngFor="let option of filteredOptions | async">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
             </form>    
             <button class="form_submit" mat-raised-button color="primary" (click)="createGame()">Начать</button>

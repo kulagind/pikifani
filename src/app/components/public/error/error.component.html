@@ -1,0 +1,3 @@
+<div (click)="close()" class="container" *ngIf="(errorService.error$ | async) as error">
+  {{error}}
+</div>

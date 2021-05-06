@@ -45,6 +45,10 @@ export class GameService {
         this._openedGameId = id;
     }
 
+    get openedGameId(): string {
+        return this._openedGameId;
+    }
+
     findGame(id: string): void {
         this.httpService.getCurrentGame(id).subscribe(game => {
             this.setOpenedGameId(id);    

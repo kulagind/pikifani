@@ -18,8 +18,11 @@ export class SseService {
     ) { }
 
     connect(userId: string): void {
-        this._connection = new EventSource(`${this.sseUrl}/${userId}`);
-        this.handleMessage();
+        if (!this._connection || this._connection.readyState === 2) {
+            this._connection = new EventSource(`${this.sseUrl}/${userId}`);
+            this.handleMessage();
+            this.handleError(userId);
+        }
     }
 
     close(): void {
@@ -40,11 +43,18 @@ export class SseService {
     }
 
     private handleMessage(): void {
-        this._connection.addEventListener('message', (event) => {
+        this._connection.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (this.sseMap.get(data.type)) {
                 this.sseMap.get(data.type)(data.payload);
             }
-        });
+        };
+    }
+
+    private handleError(userId: string): void {
+        this._connection.onerror = (event) => {
+            console.warn('Reconnect!', event);
+            this.connect(userId);
+        };
     }
 }

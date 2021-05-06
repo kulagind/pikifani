@@ -6,6 +6,7 @@ import { AuthService } from '@services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import { storageLetters } from 'src/app/utils/storage';
 
 @Component({
   selector: 'app-chat',
@@ -17,7 +18,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   isButtonDisabled: boolean = true;
 
-  wordForm: FormGroup = new FormGroup({
+  lettersForm: FormGroup = new FormGroup({
     l1: new FormControl(''),
     l2: new FormControl(''),
     l3: new FormControl(''),
@@ -47,11 +48,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setGame();
     this.listenForm();
+    this.setLetters();
   }
 
   private setGame(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
       this.gameService.findGame(params.id);
+
+      this.getLetters(params.id);
     });
   }
 
@@ -70,5 +74,19 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.wordInput.setValue('');
       });
     }
+  }
+
+  private getLetters(id: string): void {
+    const letters = storageLetters(id);
+
+    for (let control in this.lettersForm.controls) {
+      this.lettersForm.get(control).setValue(letters[control] || '');
+    }
+  }
+
+  private setLetters(): void {
+    this.lettersForm.valueChanges.subscribe(value => {
+      storageLetters(this.gameService.openedGameId, {...value});
+    })
   }
 }
