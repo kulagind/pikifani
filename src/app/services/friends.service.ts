@@ -14,6 +14,8 @@ export class FriendsService {
     private sentFriendsInvites = new ReplaySubject<User[]>(1);
     private receivedFriendsInvites = new ReplaySubject<User[]>(1);
 
+    public _friends: User[] = [];
+
     constructor(
         private httpService: HttpService,
         private sseService: SseService
@@ -39,6 +41,7 @@ export class FriendsService {
         this.sentFriendsInvites.next(data.sent);
         this.receivedFriendsInvites.next(data.received);
         this.friends.next(data.friends);
+        this._friends = data.friends;
     }
 
     get friends$(): Observable<User[]> {

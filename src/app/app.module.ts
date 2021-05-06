@@ -29,6 +29,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { initFactory } from './models/initFactory';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ErrorInterceptor } from './interceptors/error';
+import { ErrorComponent } from '@components/public/error/error.component';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { environment } from '../environments/environment';
     MessageComponent,
     LoginComponent,
     ModalComponent,
-    ResultComponent
+    ResultComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { environment } from '../environments/environment';
     MatCheckboxModule,
     MatButtonModule,
     MatTableModule,
+    MatAutocompleteModule,
     HttpClientModule,
     FormsModule,
     MatDialogModule,
@@ -70,6 +76,11 @@ import { environment } from '../environments/environment';
     { 
       provide: HTTP_INTERCEPTORS, 
       useClass: AuthInterceptor, 
+      multi: true 
+    },
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: ErrorInterceptor, 
       multi: true 
     },
     {
