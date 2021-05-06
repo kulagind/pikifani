@@ -68,7 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private swipePage(shift: number): void {
-    let index = this.navlist.findIndex(value => value.url === this.url);
+    let index = this.navlist.findIndex(value => this.url.startsWith(value.url));
 
     index = index + shift;
 
